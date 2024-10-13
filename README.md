@@ -1,12 +1,18 @@
 ## Credentials for Login
 
-### Admin Login:
+### Admin Login with inital data: 
 - **Username:** `admin123`
 - **Password:** `admin123`
+### Admin Login without inital data:
+- **Username:** `Group_42_admin`
+- **Password:** `Group_42_admin`
 
 ### Customer Login:
 - **Username:** `user2`
 - **Password:** `user2`
+### Customer Login without inital data:
+- **Username:** `Group_42_user`
+- **Password:** `Group_42_user`
 
 ## Database Setup
 
