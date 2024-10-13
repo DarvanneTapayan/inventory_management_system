@@ -4,6 +4,8 @@
 body, h1, h2, h3, p {
     margin: 0;
     padding: 0;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
     font-family: Arial, sans-serif;
 }
 
@@ -11,26 +13,34 @@ body, h1, h2, h3, p {
 body {
     background-color: #fff;
     color: #000;
+    display: flex;
+    margin: 1rem;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 100vh; /* Full height for centering */
+    flex-direction: column; /* Center elements vertically */
 }
-
-
 
 /* Header and Navbar styles */
 header {
-    background-color: #fff;
+    background-color: #f1f1f1;
     color: #000;
     padding: 10px 20px;
+    width: 100%; /* Full width */
 }
 
 nav {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+    justify-content: space-between; /* Center nav items */
     align-items: center;
+    width: 100%; /* Full width */
 }
 
 nav ul {
     list-style: none;
     display: flex;
+
     margin: 0;
     padding: 0;
 }
@@ -44,12 +54,13 @@ nav a {
     text-decoration: none;
 }
 
+/* Table styles */
 table {
     width: 100%;
     border-collapse: collapse;
     margin: 20px 0;
     font-size: 16px;
-    text-align: left;
+    text-align: center; /* Center text in the table */
 }
 
 table thead th {
@@ -70,9 +81,12 @@ table tbody td {
     border-bottom: 1px solid #ddd;
 }
 
+/* Container styles */
 .container {
+    max-width: 800px; /* Centered width */
+    width: 90%; /* Responsive */
+    margin: 0 auto; /* Center the container */
     padding: 1rem;
-    margin: 1rem;
 }
 
 /* Hero section styles */
@@ -83,7 +97,7 @@ table tbody td {
 
 /* Categories section */
 .categories {
-    margin: 20px 0;
+    margin: 1rem 0;
 }
 
 .categories ul {
@@ -97,7 +111,7 @@ table tbody td {
 /* Product grid styles */
 .product-grid {
     display: flex;
-    justify-content: space-around;
+    justify-content: center; /* Center products */
     flex-wrap: wrap;
     margin: 20px 0;
 }
@@ -115,21 +129,23 @@ table tbody td {
     height: auto;
 }
 
-@media screen and (max-width: 600px) {
-    .product-table, .product-table thead, .product-table tbody, .product-table th, .product-table td, .product-table tr {
-        display: block;
+/* Responsive styles */
+@media (max-width: 768px) {
+    .product-grid {
+        flex-direction: column;
+        align-items: center;
     }
-    .product-table td {
-        position: relative;
-        padding-left: 50%;
+
+    .product-card {
+        width: 90%;
     }
-    .product-table td:before {
-        content: attr(data-label);
-        position: absolute;
-        left: 0;
-        width: 50%;
-        padding-left: 10px;
-        font-weight: bold;
+
+    nav ul {
+        flex-direction: column;
+    }
+
+    nav ul li {
+        margin: 5px 0;
     }
 }
 
@@ -158,7 +174,7 @@ table tbody td {
 /* Button styles */
 .btn-primary, 
 .btn-secondary {
-    display: flex;
+    display: inline-block;
     background-color: #000;
     color: #fff;
     padding: 10px 15px;
@@ -175,7 +191,6 @@ table tbody td {
 }
 
 /* Notification styles */
-/* public/css/styles.css */
 .notification {
     position: fixed;
     top: 20px;
@@ -194,25 +209,4 @@ table tbody td {
 
 .notification.success {
     background-color: #4CAF50; /* Green */
-}
-
-
-/* Responsive styles */
-@media (max-width: 768px) {
-    .product-grid {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .product-card {
-        width: 90%;
-    }
-
-    nav ul {
-        flex-direction: column;
-    }
-
-    nav ul li {
-        margin: 5px 0;
-    }
 }
