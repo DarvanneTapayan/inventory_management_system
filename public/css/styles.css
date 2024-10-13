@@ -29,8 +29,6 @@ body {
     background-repeat: no-repeat; /* Prevent the image from repeating */
 }
 
-/* Additional body styles (if any) */
-
 /* Header and Navbar styles */
 header {
     background-color: #f1f1f1;
@@ -46,6 +44,9 @@ nav {
     width: 1024px; /* Full width */
     background-color: rgba(0, 0, 0, 0.2);
     border-radius: 1rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    transition: background-color 0.3s ease; /* Transition effect for background color */
 }
 
 nav ul {
@@ -53,7 +54,7 @@ nav ul {
     display: flex;
     flex-direction: row;
     margin: 0;
-    padding: 1rem;
+    padding: 0; /* Remove default padding */
     width: 100%; /* Ensure the ul takes full width */
     justify-content: space-between;
 }
@@ -61,7 +62,18 @@ nav ul {
 nav a {
     color: #000;
     text-decoration: none;
+    padding: 10px 20px; /* Add padding for better click area */
+    border-radius: 0.5rem; /* Rounded corners for links */
+    transition: color 0.3s ease, transform 0.2s ease; /* Transition for color and transform */
 }
+
+
+nav a:hover {
+    color: #fff; /* Change text color on hover */
+    background-color: rgba(0, 0, 0, 0.4); /* Background change on hover */
+    transform: scale(1.05); /* Slight zoom effect */
+}
+
 
 
 /* Table styles */
