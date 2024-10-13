@@ -15,7 +15,7 @@ function ajaxSubmitForm(form) {
             // Handle success response
             showNotification(data.message, 'success');
             // Optionally redirect or update the UI
-            window.location.href = "success_page.php"; // Redirect to a success page
+            window.location.href = ""; // Redirect to a success page
         } else {
             // Handle error response
             showNotification(data.message || 'Failed to process order.', 'error');

@@ -58,7 +58,6 @@ require_once '../app/classes/Product.php';
     </form>
 </div>
 
-<!-- Include AJAX and Notifications Scripts -->
 <script src="../public/js/ajax.js"></script>
 <script src="../public/js/notifications.js"></script>
 <script>

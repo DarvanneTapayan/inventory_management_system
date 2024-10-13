@@ -48,9 +48,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_SESSION['user_id'])) {
             $product = new Product();
             $productData = $product->getProductById($productId);
             if ($productData && $quantity > 0) {
-                if ($inventory->checkStock($productId, $quantity)) {
+                if ($inventory->getStock($productId) >= $quantity) { // Check if there is enough stock
                     if ($orderItem->create($orderId, $productId, $quantity, $productData['price'])) {
-                        $inventory->removeStock($productId, $quantity);
+                        $inventory->removeStock($productId, $quantity); // Decrease stock
                     } else {
                         error_log("Failed to create order item for product ID: $productId");
                         echo json_encode(['success' => false, 'message' => 'Failed to create order item for product ID: ' . $productId]);
