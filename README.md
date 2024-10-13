@@ -1,14 +1,18 @@
-Credentials for login:
+---
 
-For admins:
-username: admin123
-|
-password: admin123
+## Credentials for Login
 
-For customers:
-username: user123
-|
-password: user123
+### Admin Login:
+- **Username:** `admin123`
+- **Password:** `admin123`
 
-SQL to use:
-inventory_management_system (2).sql
+### Customer Login:
+- **Username:** `user123`
+- **Password:** `user123`
+
+## Database Setup
+
+To set up the database, use the following SQL file:
+- **SQL file:** `inventory_management_system.sql`
+
+---
