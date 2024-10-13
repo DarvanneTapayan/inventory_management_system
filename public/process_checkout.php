@@ -3,6 +3,7 @@ session_start();
 require_once '../app/classes/Order.php';
 require_once '../app/classes/OrderItem.php';
 require_once '../app/classes/Product.php';
+require_once '../app/classes/Inventory.php'; // Include Inventory class
 
 // Enable error reporting
 error_reporting(E_ALL);
@@ -30,12 +31,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_SESSION['user_id'])) {
 
     if ($orderId) {
         $orderItem = new OrderItem();
+        $inventory = new Inventory(); // Create an instance of Inventory
         foreach ($_SESSION['cart'] as $productId => $quantity) {
             $product = new Product();
             $productData = $product->getProductById($productId);
 
             if ($productData) {
-                if (!$orderItem->create($orderId, $productId, $quantity, $productData['price'])) {
+                if ($orderItem->create($orderId, $productId, $quantity, $productData['price'])) {
+                    // Remove stock after successfully adding the order item
+                    $inventory->removeStock($productId, $quantity);
+                } else {
                     // Log error if order item creation fails
                     error_log("Failed to create order item for product ID: $productId");
                 }
