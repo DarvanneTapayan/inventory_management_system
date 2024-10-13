@@ -64,5 +64,13 @@ class Product {
         $stmt->bindParam(':id', $id);
         return $stmt->execute();
     }
+    
+    public function getProductsByCategory($categoryId) {
+        $query = "SELECT * FROM " . $this->table . " WHERE category_id = :category_id";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':category_id', $categoryId);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 }
 ?>

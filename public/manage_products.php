@@ -52,13 +52,13 @@ $products = $productController->getAllProducts(); // Fetch all products
     </form>
 
     <h3>Existing Products</h3>
-    <table>
+    <table class="product-table">
         <thead>
             <tr>
                 <th>Product Name</th>
-                <th>Description</th> <!-- Added description column -->
-                <th>Price</th> <!-- Added price column -->
-                <th>Quantity in Stock</th> <!-- New column for stock -->
+                <th>Description</th>
+                <th>Price</th>
+                <th>Quantity in Stock</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -66,18 +66,19 @@ $products = $productController->getAllProducts(); // Fetch all products
             <?php foreach ($products as $prod): ?>
                 <tr>
                     <td><?php echo htmlspecialchars($prod['name']); ?></td>
-                    <td><?php echo htmlspecialchars($prod['description']); ?></td> <!-- Display product description -->
-                    <td>$<?php echo number_format($prod['price'], 2); ?></td> <!-- Display product price -->
+                    <td title="<?php echo htmlspecialchars($prod['description']); ?>">
+                        <?php echo strlen($prod['description']) > 50 ? substr(htmlspecialchars($prod['description']), 0, 50) . '...' : htmlspecialchars($prod['description']); ?>
+                    </td>
+                    <td>$<?php echo number_format($prod['price'], 2); ?></td>
                     <td>
                         <?php 
-                        // Fetching stock dynamically
                         $stock = $inventoryController->getStock($prod['id']); 
                         echo htmlspecialchars($stock);
                         ?>
                     </td>
                     <td>
-                        <a href="edit_product.php?id=<?php echo $prod['id']; ?>" class="btn-secondary">Edit</a>
-                        <a href="delete_product.php?id=<?php echo $prod['id']; ?>" class="btn-secondary" onclick='return confirm("Are you sure you want to delete this product?");'>Delete</a>
+                        <a href="edit_product.php?id=<?php echo $prod['id']; ?>" class="btn btn-edit">Edit</a>
+                        <a href="delete_product.php?id=<?php echo $prod['id']; ?>" class="btn btn-delete" onclick='return confirm("Are you sure you want to delete this product?");'>Delete</a>
                     </td>
                 </tr>
             <?php endforeach; ?>

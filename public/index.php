@@ -41,9 +41,23 @@
                     <p>" . htmlspecialchars($prod['description']) . "</p>
                     <p class='price'>$" . number_format($prod['price'], 2) . "</p>
                     <p class='stock'>Quantity in Stock: " . htmlspecialchars($stock) . "</p> <!-- Display stock -->
-                    <a href='product.php?id=" . $prod['id'] . "' class='btn-secondary'>View Details</a>
-                </div>
-                ";
+                    
+                    <!-- Check if stock is greater than 0 -->
+                    <form action='add_to_cart.php' method='POST'>
+                        <input type='hidden' name='product_id' value='" . $prod['id'] . "'>
+                        <div class='form-group'>
+                            <label for='quantity'>Quantity:</label>
+                            <input type='number' id='quantity' name='quantity' value='1' min='1' max='" . htmlspecialchars($stock) . "' required>
+                        </div>";
+                
+                if ($stock > 0) {
+                    echo "<button type='submit' class='btn-secondary'>Add to Cart</button>";
+                } else {
+                    echo "<p class='out-of-stock'>This product is currently out of stock.</p>";
+                }
+
+                echo "</form>
+                </div>";
             }
             ?>
         </div>

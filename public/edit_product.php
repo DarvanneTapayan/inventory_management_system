@@ -8,7 +8,10 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
 }
 
 require_once '../app/classes/Product.php';
+require_once '../app/classes/Category.php'; // Include Category class
+
 $product = new Product();
+$category = new Category(); // Create an instance of Category
 $productId = $_GET['id'];
 $productDetails = $product->getProductById($productId);
 
@@ -27,6 +30,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $_SESSION['error'] = "Failed to update product.";
     }
 }
+
+// Fetch all categories from the database
+$categories = $category->getAll();
 ?>
 
 <div class="container">
@@ -47,10 +53,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <div class="form-group">
             <label for="category_id">Category:</label>
             <select id="category_id" name="category_id" required>
-                <option value="1">Cakes</option>
-                <option value="2">Pastries</option>
-                <!-- Categories can be fetched dynamically from the database -->
+                <?php foreach ($categories as $cat): ?>
+                    <option value="<?php echo $cat['id']; ?>" <?php echo $cat['id'] == $productDetails['category_id'] ? 'selected' : ''; ?>>
+                        <?php echo htmlspecialchars($cat['name']); ?>
+                    </option>
+                <?php endforeach; ?>
             </select>
+        </div>
+        <div class="form-group">
+            <label for="image_url">Image URL:</label>
+            <input type="text" id="image_url" name="image_url" value="<?php echo htmlspecialchars($productDetails['image_url']); ?>" required>
         </div>
         <button type="submit" class="btn-primary">Update Product</button>
     </form>

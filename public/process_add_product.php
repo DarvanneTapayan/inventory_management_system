@@ -1,5 +1,4 @@
 <?php
-// public/process_add_product.php
 session_start();
 require_once '../app/controllers/ProductController.php';
 require_once '../app/controllers/InventoryController.php';
