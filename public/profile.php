@@ -1,31 +1,39 @@
-<?php include '../templates/header.php'; ?>
-<?php include '../templates/navbar.php'; ?>
-<?php
-$user = [
-    'username' => 'john_doe',
-    'email' => 'john@example.com',
-    'phone' => '123-456-7890'
-];
+<?php 
+include '../templates/header.php'; 
+include '../templates/navbar.php'; 
+
+require_once '../app/classes/User.php'; // Include the User class
+
+$userId = $_SESSION['user_id'] ?? null; // Get user ID from session
+if (!$userId) {
+    echo "<div class='container'><h2>You must be logged in to view your profile.</h2></div>";
+    exit();
+}
+
+$userModel = new User();
+$user = $userModel->getUserById($userId); // Fetch user data from the database
+
+if (!$user) {
+    echo "<div class='container'><h2>User not found.</h2></div>";
+    exit();
+}
 ?>
 
 <div class="container">
+    <h2>User Profile</h2>
     <div class="form-container">
-        <h2>Profile</h2>
-        <form action="update_profile.php" method="POST">
-            <div class="form-group">
-                <label for="username">Username:</label>
-                <input type="text" id="username" name="username" value="<?php echo htmlspecialchars($user['username']); ?>" required>
-            </div>
-            <div class="form-group">
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="email" value="<?php echo htmlspecialchars($user['email']); ?>" required>
-            </div>
-            <div class="form-group">
-                <label for="phone">Phone:</label>
-                <input type="text" id="phone" name="phone" value="<?php echo htmlspecialchars($user['phone']); ?>">
-            </div>
-            <button type="submit" class="btn-primary">Update Profile</button>
-        </form>
+        <div class="form-group">
+            <label for="username">Username:</label>
+            <input type="text" id="username" value="<?php echo htmlspecialchars($user['username']); ?>" readonly>
+        </div>
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" id="email" value="<?php echo htmlspecialchars($user['email'] ?? 'Not provided'); ?>" readonly>
+        </div>
+        <div class="form-group">
+            <label for="phone">Phone:</label>
+            <input type="text" id="phone" value="<?php echo htmlspecialchars($user['phone'] ?? 'Not provided'); ?>" readonly>
+        </div>
     </div>
 </div>
 
