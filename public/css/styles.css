@@ -43,20 +43,19 @@ nav {
     display: flex;
     justify-content: center; /* Center nav items */
     align-items: center;
-    width: 100%; /* Full width */
+    width: 1024px; /* Full width */
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 1rem;
 }
 
 nav ul {
     list-style: none;
     display: flex;
+    flex-direction: row;
     margin: 0;
-    padding: 0;
-    width: 992px; /* Ensure the ul takes full width */
-    justify-content: space-between; /* Center the list items */
-}
-
-nav ul li {
-    margin-bottom: 1rem;
+    padding: 1rem;
+    width: 100%; /* Ensure the ul takes full width */
+    justify-content: space-between;
 }
 
 nav a {
@@ -292,14 +291,24 @@ table tbody td {
 
 
 /* Responsive styles */
-@media (max-width: 768px) {
+@media (max-width: 1100px) {
     .product-grid {
-        flex-direction: column;
+        flex-direction: row;
         align-items: center;
     }
 
     .product-card {
+        width: 30%;
+        height: auto;
+    }
+
+    nav {
+        max-width: 60rem;
         width: 90%;
+        margin: 2rem auto;
+        padding: 2rem;
+        background-color: rgba(0, 0, 0, 0.2);
+        border-radius: 1rem;
     }
 
     nav ul {
