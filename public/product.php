@@ -25,7 +25,26 @@ if (!$products) {
 ?>
 
 <div class="container">
-    <h2>All Products</h2>
+    <section>
+        <h1>Our Delicious Products</h1>
+        <p>Explore our wide range of mouthwatering cakes and pastries. Each item is lovingly baked with the finest ingredients to ensure the best taste. From classic favorites to unique creations, we have something to satisfy every sweet tooth. Take a look and find your next favorite treat!</p>
+    </section>
+    <section class="categories">
+        <div class="categories-dropdown">
+            <select id="categorySelect" onchange="location = this.value;">
+                <option value="">Select a category</option>
+                <?php
+                require_once '../app/classes/Category.php';
+                $category = new Category();
+                $categories = $category->getAll();
+                foreach ($categories as $cat) {
+                    echo "<option value='product.php?category_id=" . $cat['id'] . "'>" . htmlspecialchars($cat['name']) . "</option>";
+                }
+                ?>
+                <option value="product.php">All</option>
+            </select>
+        </div>
+    </section>
     <?php if ($categoryId): ?>
         <?php foreach ($categories as $cat): ?>
             <?php if ($cat['id'] == $categoryId): ?>

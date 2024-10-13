@@ -7,22 +7,26 @@
         <p>Discover our delicious selection of cakes and pastries.</p>
     </section>
 
-    <section class="categories">
-        <h2>Categories</h2>
-        <ul>
-            <?php
-            require_once '../app/classes/Category.php';
-            $category = new Category();
-            $categories = $category->getAll();
-            foreach ($categories as $cat) {
-                echo "<li><a href='product.php?category_id=" . $cat['id'] . "'>" . htmlspecialchars($cat['name']) . "</a></li>";
-            }
-            ?>
-        </ul>
-    </section>
-
     <section class="featured-products">
         <h2>Featured Products</h2>
+
+        <section class="categories">
+        <div class="categories-dropdown">
+            <select id="categorySelect" onchange="location = this.value;">
+                <option value="">Select a category</option>
+                <?php
+                require_once '../app/classes/Category.php';
+                $category = new Category();
+                $categories = $category->getAll();
+                foreach ($categories as $cat) {
+                    echo "<option value='product.php?category_id=" . $cat['id'] . "'>" . htmlspecialchars($cat['name']) . "</option>";
+                }
+                ?>
+                <option value="product.php">All</option>
+            </select>
+        </div>
+        </section>
+
         <div class="product-grid">
             <?php
             require_once '../app/classes/Product.php';
@@ -58,26 +62,26 @@
     </section>
 
     <section>
-    <div class="container">
-    <div class="form-container">
+    <div class="contact-container">
+    <div class="contact-form-container">
         <h2>Contact Us</h2>
         <form action="send_message.php" method="POST">
-            <div class="form-group">
+            <div class="contact-form-group">
                 <label for="name">Name:</label>
                 <input type="text" id="name" name="name" required>
             </div>
-            <div class="form-group">
+            <div class="contact-form-group">
                 <label for="email">Email:</label>
                 <input type="email" id="email" name="email" required>
             </div>
-            <div class="form-group">
+            <div class="contact-form-group">
                 <label for="message">Message:</label>
                 <textarea id="message" name="message" rows="5" required></textarea>
             </div>
             <button type="submit" class="btn-primary">Send Message</button>
         </form>
     </div>
-</div>
+    </div>
     </section>
 </div>
 

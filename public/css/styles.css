@@ -7,6 +7,7 @@ body, h1, h2, h3, p {
     padding-top: 1rem;
     padding-bottom: 1rem;
     font-family: Arial, sans-serif;
+    font-size: large;
 }
 
 /* Body styles */
@@ -14,12 +15,21 @@ body {
     background-color: #fff;
     color: #000;
     display: flex;
-    margin: 1rem;
-    justify-content: space-between;
+    margin: 0; /* Removed margin for proper alignment */
+    justify-content: space-between; /* Center the content */
     align-items: center;
     min-height: 100vh; /* Full height for centering */
     flex-direction: column; /* Center elements vertically */
 }
+
+body {
+    background-image: url('https://images.unsplash.com/photo-1707134657472-51902d2854a4?q=80&w=1970&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+    background-size: cover; /* Cover the entire viewport */
+    background-position: center; /* Center the background image */
+    background-repeat: no-repeat; /* Prevent the image from repeating */
+}
+
+/* Additional body styles (if any) */
 
 /* Header and Navbar styles */
 header {
@@ -31,8 +41,7 @@ header {
 
 nav {
     display: flex;
-    flex-direction: column;
-    justify-content: space-between; /* Center nav items */
+    justify-content: center; /* Center nav items */
     align-items: center;
     width: 100%; /* Full width */
 }
@@ -40,19 +49,21 @@ nav {
 nav ul {
     list-style: none;
     display: flex;
-
     margin: 0;
     padding: 0;
+    width: 992px; /* Ensure the ul takes full width */
+    justify-content: space-between; /* Center the list items */
 }
 
 nav ul li {
-    margin: 0 15px;
+    margin-bottom: 1rem;
 }
 
 nav a {
     color: #000;
     text-decoration: none;
 }
+
 
 /* Table styles */
 table {
@@ -83,10 +94,20 @@ table tbody td {
 
 /* Container styles */
 .container {
-    max-width: 800px; /* Centered width */
+    max-width: 60rem; /* Centered width */
     width: 90%; /* Responsive */
-    margin: 0 auto; /* Center the container */
+    margin: 2rem auto; /* Center the container */
+    padding: 2rem;
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 1rem;
+}
+
+.contact-container {
+
     padding: 1rem;
+    background-color: rgba(110, 110, 110, 0.2);
+    border: 1px solid #b8b8b8;
+    border-radius: 1rem;
 }
 
 /* Hero section styles */
@@ -97,15 +118,17 @@ table tbody td {
 
 /* Categories section */
 .categories {
-    margin: 1rem 0;
+    margin: 0 0;
 }
 
 .categories ul {
-    list-style: none;
+    list-style: none; /* No bullet points */
+    padding: 0; /* No padding */
 }
 
-.categories li {
-    margin: 5px 0;
+/* Featured products styles */
+.featured-products {
+    margin: 20px 0;
 }
 
 /* Product grid styles */
@@ -117,40 +140,37 @@ table tbody td {
 }
 
 .product-card {
-    border: 1px solid #ccc;
+    border: 1px solid #c4c4c4;
+    border-radius: 1rem;
+    background-color: #ececec;
     padding: 20px;
     margin: 10px;
-    width: 200px;
-    text-align: center;
+    width: 250px;
+    height: auto;
+    transition: transform 0.2s ease, box-shadow 0.2s ease; /* Smooth transition for transform and shadow */
+}
+
+/* Hover effect */
+.product-card:hover {
+    transform: scale(1.05); /* Slight zoom effect */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Add shadow for depth */
 }
 
 .product-card img {
     width: 100%;
     height: auto;
+    border-radius: 1rem;
+    transition: transform 0.2s ease; /* Smooth transition for transform */
 }
 
-/* Responsive styles */
-@media (max-width: 768px) {
-    .product-grid {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .product-card {
-        width: 90%;
-    }
-
-    nav ul {
-        flex-direction: column;
-    }
-
-    nav ul li {
-        margin: 5px 0;
-    }
+/* Hover effect for the image */
+.product-card:hover img {
+    transform: scale(1.1); /* Slight zoom effect on hover */
 }
 
 /* Form styles */
 .form-container {
+    width: 100%;
     padding: 20px;
     margin: 20px 0;
 }
@@ -166,9 +186,34 @@ table tbody td {
 .form-group input, 
 .form-group textarea, 
 .form-group select {
-    width: 100%;
+    width: 90%; /* Width of form elements */
     padding: 8px;
     border: 1px solid #ccc;
+    border-radius: 8px; /* Rounded corners */
+}
+
+.contact-form-container {
+    width: 100%;
+    padding: 20px;
+    margin: 20px 0;
+}
+
+.contact-form-group {
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+.contact-form-group label {
+    display: block;
+}
+
+.contact-form-group input, 
+.contact-form-group textarea, 
+.contact-form-group select {
+    width: 93%; /* Width of form elements */
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 8px; /* Rounded corners */
 }
 
 /* Button styles */
@@ -183,6 +228,7 @@ table tbody td {
     border: none;
     cursor: pointer;
     text-decoration: none;
+    border-radius: 8px; /* Rounded corners */
 }
 
 .btn-primary:hover, 
@@ -209,4 +255,58 @@ table tbody td {
 
 .notification.success {
     background-color: #4CAF50; /* Green */
+}
+
+.dashboard-links {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: space-between; /* Align cards evenly */
+    margin-top: 20px;
+}
+
+.dashboard-card {
+    border: 1px solid #c4c4c4; /* Border color */
+    border-radius: 1rem; /* Rounded corners */
+    background-color: #ececec; /* Background color */
+    padding: 20px; /* Padding inside the card */
+    margin: 10px; /* Margin around the card */
+    width: calc(30% - 20px); /* Responsive width for 3 cards per row */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    text-align: center; /* Center align text */
+    transition: transform 0.2s ease, box-shadow 0.2s ease; /* Smooth transition for hover effects */
+}
+
+.dashboard-card:hover {
+    transform: scale(1.05); /* Slight zoom effect on hover */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Deeper shadow on hover */
+}
+
+.dashboard-card a {
+    text-decoration: none; /* Remove underline from links */
+    color: #ececec; /* Link color */
+    font-weight: bold; /* Bold text */
+    display: block; /* Make the link a block to cover the whole card */
+    margin-bottom: 10px; /* Space between link and description */
+}
+
+
+/* Responsive styles */
+@media (max-width: 768px) {
+    .product-grid {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .product-card {
+        width: 90%;
+    }
+
+    nav ul {
+        flex-direction: column; /* Stack nav items vertically */
+    }
+
+    nav ul li {
+        margin: 5px 0;
+    }
 }
