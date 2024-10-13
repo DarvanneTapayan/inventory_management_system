@@ -13,3 +13,6 @@
 To set up the database, use the following SQL file:
 - **SQL database creation:** `name of the database should be inventory_management_system`
 - **SQL file:** `then export inventory_management_system.sql on the newly created inventory_management_system database`
+
+## Routes
+- **homepage:** `http://localhost/inventory_management_system/public/index.php`
