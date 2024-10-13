@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Oct 13, 2024 at 05:11 PM
+-- Generation Time: Oct 13, 2024 at 09:46 PM
 -- Server version: 8.3.0
 -- PHP Version: 8.2.18
 
@@ -92,9 +92,9 @@ INSERT INTO `inventory` (`id`, `product_id`, `quantity_in_stock`) VALUES
 (5, 14, 0),
 (4, 13, 100),
 (7, 26, 5156),
-(8, 27, 2),
-(9, 28, 100),
-(10, 29, 2),
+(8, 27, 4),
+(9, 28, 106),
+(10, 29, 1),
 (11, 30, 0),
 (12, 31, 0),
 (13, 32, 0);
@@ -119,7 +119,7 @@ CREATE TABLE IF NOT EXISTS `orders` (
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`),
   KEY `idx_order_status` (`status`)
-) ENGINE=MyISAM AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=28 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `orders`
@@ -136,19 +136,22 @@ INSERT INTO `orders` (`id`, `user_id`, `status`, `total_amount`, `payment_method
 (9, 3, 'pending', 40.00, 'credit_card', 'pickup', '2024-10-23', '2024-10-13 14:33:20', '1232323232'),
 (10, 3, 'pending', 40.00, 'credit_card', 'pickup', '2024-10-19', '2024-10-13 14:36:14', 'BARAG'),
 (11, 3, 'canceled', 254460.00, 'credit_card', 'pickup', '2024-10-19', '2024-10-13 14:36:39', '12312c3123c2'),
-(12, 3, 'pending', 80.00, 'credit_card', 'delivery', '2024-10-17', '2024-10-13 15:28:07', 'BARAG123122323232323'),
+(12, 3, 'delivered', 80.00, 'credit_card', 'delivery', '2024-10-17', '2024-10-13 15:28:07', 'BARAG123122323232323'),
 (13, 3, 'pending', 80.00, 'paypal', 'delivery', '2024-10-19', '2024-10-13 15:28:30', 'BARAG123122323232323'),
 (14, 3, 'pending', 40.00, 'paypal', 'delivery', '2024-10-30', '2024-10-13 15:29:55', 'BARAG123122323232323'),
 (15, 3, 'pending', 40.00, 'paypal', 'delivery', '2024-10-30', '2024-10-13 15:30:25', 'BARAG123122323232323'),
 (16, 3, 'pending', 90.00, 'credit_card', 'pickup', '2024-10-23', '2024-10-13 15:39:49', 'BARAG'),
 (17, 3, 'pending', 126.00, 'credit_card', 'pickup', '2024-10-19', '2024-10-13 15:40:25', 'BARAG'),
-(18, 2, 'pending', 40.00, 'credit_card', 'pickup', '2024-10-24', '2024-10-13 16:06:22', 'BARAG123122323232323'),
+(18, 2, 'processing', 40.00, 'credit_card', 'pickup', '2024-10-24', '2024-10-13 16:06:22', 'BARAG123122323232323'),
 (19, 3, 'canceled', 40.00, 'credit_card', 'pickup', '2024-10-23', '2024-10-13 16:18:48', '1232323232'),
 (20, 2, 'pending', 40.00, 'credit_card', 'pickup', '2024-10-24', '2024-10-13 16:21:18', '1232323232'),
 (21, 2, 'pending', 4000.00, 'credit_card', 'pickup', '2024-10-17', '2024-10-13 16:24:05', '12312c3123c2'),
 (22, 2, 'pending', 137690.00, 'credit_card', 'pickup', '2024-10-18', '2024-10-13 16:25:53', 'qwe'),
 (23, 3, 'canceled', 100000.00, 'credit_card', 'pickup', '2024-10-24', '2024-10-13 16:51:43', 'BARAG123122323232323'),
-(24, 4, 'pending', 80.00, 'credit_card', 'delivery', '2024-10-31', '2024-10-13 17:00:13', 'BARAG');
+(24, 4, 'canceled', 80.00, 'credit_card', 'delivery', '2024-10-31', '2024-10-13 17:00:13', 'BARAG'),
+(25, 4, 'canceled', 42.00, 'credit_card', 'pickup', '2024-10-24', '2024-10-13 17:32:27', 'BARAG123122323232323'),
+(26, 4, 'processing', 10.00, 'credit_card', 'pickup', '2024-10-31', '2024-10-13 19:29:51', 'BARAG123122323232323'),
+(27, 4, 'pending', 40.00, 'cash_on_delivery', 'pickup', '2024-10-25', '2024-10-13 19:36:14', 'Zone 2, Agusan, CDOC');
 
 -- --------------------------------------------------------
 
@@ -166,7 +169,7 @@ CREATE TABLE IF NOT EXISTS `order_items` (
   PRIMARY KEY (`id`),
   KEY `order_id` (`order_id`),
   KEY `product_id` (`product_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=33 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=36 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `order_items`
@@ -203,7 +206,10 @@ INSERT INTO `order_items` (`id`, `order_id`, `product_id`, `quantity`, `price`) 
 (29, 21, 28, 100, 40.00),
 (30, 22, 29, 13769, 10.00),
 (31, 23, 29, 10000, 10.00),
-(32, 24, 28, 2, 40.00);
+(32, 24, 28, 2, 40.00),
+(33, 25, 27, 1, 42.00),
+(34, 26, 29, 1, 10.00),
+(35, 27, 28, 1, 40.00);
 
 -- --------------------------------------------------------
 
@@ -253,7 +259,7 @@ CREATE TABLE IF NOT EXISTS `sales` (
   PRIMARY KEY (`id`),
   KEY `order_id` (`order_id`),
   KEY `product_id` (`product_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `sales`
@@ -268,7 +274,10 @@ INSERT INTO `sales` (`id`, `order_id`, `product_id`, `quantity`, `sale_amount`, 
 (7, 21, 28, 100, 4000.00, '2024-10-13 08:24:05'),
 (8, 22, 29, 13769, 137690.00, '2024-10-13 08:25:53'),
 (9, 23, 29, 10000, 100000.00, '2024-10-13 08:51:43'),
-(10, 24, 28, 2, 80.00, '2024-10-13 09:00:14');
+(10, 24, 28, 2, 80.00, '2024-10-13 09:00:14'),
+(11, 25, 27, 1, 42.00, '2024-10-13 09:32:27'),
+(12, 26, 29, 1, 10.00, '2024-10-13 11:29:51'),
+(13, 27, 28, 1, 40.00, '2024-10-13 11:36:14');
 
 -- --------------------------------------------------------
 
