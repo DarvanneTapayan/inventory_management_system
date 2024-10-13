@@ -2,14 +2,13 @@
 session_start();
 require_once '../app/classes/Order.php';
 require_once '../app/classes/OrderItem.php';
-require_once '../app/classes/Product.php';
 
 // Set content type to JSON
 header('Content-Type: application/json');
 
 // Check if the user is logged in and the request method is POST
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_SESSION['user_id'])) { 
-    $userId = $_SESSION['user_id']; // Ensure this is correctly set in your session
+    $userId = $_SESSION['user_id']; 
     $totalAmount = $_POST['total_amount'];
     $paymentMethod = $_POST['payment_method'];
     $address = $_POST['address'];
@@ -28,10 +27,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_SESSION['user_id'])) {
         $orderItem = new OrderItem();
         foreach ($_SESSION['cart'] as $productId => $quantity) {
             $product = new Product();
-            $productData = $product->getProductById($productId); // Fetch product details for order items
+            $productData = $product->getProductById($productId);
 
             if ($productData) {
-                $orderItem->create($orderId, $productId, $quantity, $productData['price']); // Save each order item
+                $orderItem->create($orderId, $productId, $quantity, $productData['price']);
             }
         }
         unset($_SESSION['cart']); // Clear the cart after successful order placement

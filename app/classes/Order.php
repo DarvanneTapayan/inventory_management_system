@@ -12,7 +12,7 @@ class Order {
     public function create($user_id, $status = 'pending', $total_amount, $payment_method, $address) {
         try {
             $query = "INSERT INTO orders (user_id, status, total_amount, payment_method, address, created_at)
-                      VALUES (:user_id, :status, :total_amount, :payment_method, :address, NOW())"; // Ensure correct table name
+                      VALUES (:user_id, :status, :total_amount, :payment_method, :address, NOW())";
             $stmt = $this->conn->prepare($query);
             $stmt->bindParam(':user_id', $user_id);
             $stmt->bindParam(':status', $status);
@@ -23,6 +23,7 @@ class Order {
             if ($stmt->execute()) {
                 return $this->conn->lastInsertId(); // Return the order ID
             }
+            error_log("Database Error: " . implode(", ", $stmt->errorInfo())); // Log any SQL error
             return false; // Return false if the order creation fails
         } catch (Exception $e) {
             error_log("Error creating order: " . $e->getMessage()); // Log error message

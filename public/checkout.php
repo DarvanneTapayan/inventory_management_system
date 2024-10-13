@@ -2,7 +2,6 @@
 <?php include '../templates/navbar.php'; ?>
 
 <?php
-// Check if the cart exists in the session
 $cartItems = isset($_SESSION['cart']) ? $_SESSION['cart'] : [];
 $totalAmount = 0;
 
@@ -33,7 +32,7 @@ require_once '../app/classes/Product.php';
         <ul>
             <?php foreach ($cartItems as $productId => $quantity): 
                 $product = new Product();
-                $productData = $product->getProductById($productId); // Fetch product details from database
+                $productData = $product->getProductById($productId);
                 if ($productData) {
                     $itemTotal = $quantity * $productData['price'];
                     $totalAmount += $itemTotal; ?>

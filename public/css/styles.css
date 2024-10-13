@@ -44,6 +44,32 @@ nav a {
     text-decoration: none;
 }
 
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 16px;
+    text-align: left;
+}
+
+table thead th {
+    background-color: #f4f4f4;
+    padding: 10px;
+}
+
+table tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+table tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+table tbody td {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
 .container {
     padding: 1rem;
     margin: 1rem;
@@ -87,32 +113,6 @@ nav a {
 .product-card img {
     width: 100%;
     height: auto;
-}
-
-.product-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 20px 0;
-    font-size: 16px;
-    text-align: left;
-}
-
-.product-table thead th {
-    background-color: #f4f4f4;
-    padding: 10px;
-}
-
-.product-table tbody tr:nth-child(even) {
-    background-color: #f9f9f9;
-}
-
-.product-table tbody tr:hover {
-    background-color: #f1f1f1;
-}
-
-.product-table tbody td {
-    padding: 10px;
-    border-bottom: 1px solid #ddd;
 }
 
 @media screen and (max-width: 600px) {

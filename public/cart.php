@@ -2,7 +2,6 @@
 <?php include '../templates/navbar.php'; ?>
 <?php
 
-// Check if the cart exists in the session
 $cartItems = isset($_SESSION['cart']) ? $_SESSION['cart'] : [];
 $totalAmount = 0;
 ?>
@@ -23,7 +22,6 @@ $totalAmount = 0;
                 </thead>
                 <tbody>
                     <?php
-                    // Loop through cart items to display them
                     foreach ($cartItems as $productId => $quantity) {
                         require_once '../app/classes/Product.php';
                         $product = new Product();

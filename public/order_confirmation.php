@@ -2,7 +2,6 @@
 session_start(); 
 require_once '../app/controllers/OrderController.php'; 
 
-// Ensure the user is logged in
 if (!isset($_SESSION['user_id'])) {
     header("Location: index.php");
     exit();

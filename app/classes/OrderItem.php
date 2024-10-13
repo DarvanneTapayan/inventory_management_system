@@ -52,5 +52,16 @@ class OrderItem {
             return false;
         }
     }
+
+    public function getItemsByOrderId($orderId) {
+        $query = "SELECT oi.*, p.name AS product_name 
+                  FROM " . $this->table . " oi 
+                  LEFT JOIN products p ON oi.product_id = p.id 
+                  WHERE oi.order_id = :order_id";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':order_id', $orderId);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 }
 ?>

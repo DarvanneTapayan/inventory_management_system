@@ -19,5 +19,9 @@ class OrderItemController {
     public function deleteOrderItem($order_item_id) {
         return $this->orderItem->deleteOrderItem($order_item_id);
     }
+
+    public function getOrderItemsByOrderId($orderId) {
+        return $this->orderItem->getItemsByOrderId($orderId);
+    }
 }
 ?>

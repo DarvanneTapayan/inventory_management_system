@@ -1,4 +1,3 @@
-<!-- public/manage_products.php -->
 <?php include '../templates/header.php'; ?>
 <?php include '../templates/navbar.php'; ?>
 <?php
@@ -77,8 +76,8 @@ $products = $productController->getAllProducts(); // Fetch all products
                         ?>
                     </td>
                     <td>
-                        <a href="edit_product.php?id=<?php echo $prod['id']; ?>" class="btn btn-edit">Edit</a>
-                        <a href="delete_product.php?id=<?php echo $prod['id']; ?>" class="btn btn-delete" onclick='return confirm("Are you sure you want to delete this product?");'>Delete</a>
+                        <a href="edit_product.php?id=<?php echo $prod['id']; ?>" class="btn-secondary">Edit</a>
+                        <a href="delete_product.php?id=<?php echo $prod['id']; ?>" class="btn-secondary" onclick='return confirm("Are you sure you want to delete this product?");'>Delete</a>
                     </td>
                 </tr>
             <?php endforeach; ?>

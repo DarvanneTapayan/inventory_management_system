@@ -1,4 +1,3 @@
-<!-- public/index.php -->
 <?php include '../templates/header.php'; ?>
 <?php include '../templates/navbar.php'; ?>
 
@@ -27,12 +26,11 @@
         <div class="product-grid">
             <?php
             require_once '../app/classes/Product.php';
-            require_once '../app/controllers/InventoryController.php'; // Include InventoryController
+            require_once '../app/controllers/InventoryController.php'; 
             $product = new Product();
-            $inventoryController = new InventoryController(); // Create an instance of InventoryController
+            $inventoryController = new InventoryController(); 
             $products = $product->getAll();
             foreach ($products as $prod) {
-                // Fetch stock level
                 $stock = $inventoryController->getStock($prod['id']);
                 echo "
                 <div class='product-card'>
@@ -40,10 +38,8 @@
                     <h3>" . htmlspecialchars($prod['name']) . "</h3>
                     <p>" . htmlspecialchars($prod['description']) . "</p>
                     <p class='price'>$" . number_format($prod['price'], 2) . "</p>
-                    <p class='stock'>Quantity in Stock: " . htmlspecialchars($stock) . "</p> <!-- Display stock -->
-                    
-                    <!-- Check if stock is greater than 0 -->
-                    <form action='add_to_cart.php' method='POST'>
+                    <p class='stock'>Quantity in Stock: " . htmlspecialchars($stock) . "</p>
+                    <form class='add-to-cart-form' onsubmit='event.preventDefault(); ajaxSubmitForm(this);' action='process_add_to_cart.php' method='POST'>
                         <input type='hidden' name='product_id' value='" . $prod['id'] . "'>
                         <div class='form-group'>
                             <label for='quantity'>Quantity:</label>
@@ -55,13 +51,14 @@
                 } else {
                     echo "<p class='out-of-stock'>This product is currently out of stock.</p>";
                 }
-
-                echo "</form>
-                </div>";
+                echo "</form></div>";
             }
             ?>
         </div>
     </section>
 </div>
+
+<script src="../public/js/ajax.js"></script>
+<script src="../public/js/notifications.js"></script>
 
 <?php include '../templates/footer.php'; ?>
