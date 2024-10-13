@@ -1,5 +1,3 @@
----
-
 ## Credentials for Login
 
 ### Admin Login:
@@ -14,5 +12,3 @@
 
 To set up the database, use the following SQL file:
 - **SQL file:** `inventory_management_system.sql`
-
----
