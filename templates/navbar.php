@@ -6,8 +6,11 @@
         <li><a href="contact.php">Contact Us</a></li>
         <?php session_start(); ?>
         <?php if (isset($_SESSION['username'])): ?>
+            <?php if ($_SESSION['role'] !== 'admin'): ?>
+                <li><a href="order_history.php">Order History</a></li>
+            <?php endif; ?>
             <li><a href="profile.php">Profile</a></li>
-            <?php if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin'): ?>
+            <?php if ($_SESSION['role'] === 'admin'): ?>
                 <li><a href="admin_dashboard.php">Admin Dashboard</a></li>
             <?php endif; ?>
             <li><a href="logout.php">Logout</a></li>

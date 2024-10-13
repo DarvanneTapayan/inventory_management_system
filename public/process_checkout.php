@@ -4,6 +4,7 @@ require_once '../app/classes/Order.php';
 require_once '../app/classes/OrderItem.php';
 require_once '../app/classes/Product.php';
 require_once '../app/classes/Inventory.php';
+require_once '../app/classes/Sale.php'; // Include the Sale class
 
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
@@ -43,6 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_SESSION['user_id'])) {
     if ($orderId) {
         $orderItem = new OrderItem();
         $inventory = new Inventory();
+        $sale = new Sale(); // Create an instance of the Sale class
         
         foreach ($_SESSION['cart'] as $productId => $quantity) {
             $product = new Product();
@@ -51,6 +53,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_SESSION['user_id'])) {
                 if ($inventory->getStock($productId) >= $quantity) { // Check if there is enough stock
                     if ($orderItem->create($orderId, $productId, $quantity, $productData['price'])) {
                         $inventory->removeStock($productId, $quantity); // Decrease stock
+
+                        // Record the sale for each product sold
+                        $saleAmount = $quantity * $productData['price']; // Calculate sale amount
+                        $saleDate = date('Y-m-d H:i:s'); // Current timestamp
+                        if (!$sale->create($orderId, $productId, $quantity, $saleAmount, $saleDate)) {
+                            error_log("Failed to record sale for product ID: $productId");
+                            echo json_encode(['success' => false, 'message' => 'Failed to record sale for product ID: ' . $productId]);
+                            exit();
+                        }
+
                     } else {
                         error_log("Failed to create order item for product ID: $productId");
                         echo json_encode(['success' => false, 'message' => 'Failed to create order item for product ID: ' . $productId]);

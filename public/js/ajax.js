@@ -5,20 +5,21 @@ function ajaxSubmitForm(form) {
         body: formData
     })
     .then(response => {
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
-        return response.json(); // Parse the response as JSON
+        return response.text(); // Get the response as text first
     })
-    .then(data => {
-        if (data.success) {
-            // Handle success response
-            showNotification(data.message, 'success');
-            // Optionally redirect or update the UI
-            window.location.href = ""; // Redirect to a success page
-        } else {
-            // Handle error response
-            showNotification(data.message || 'Failed to process order.', 'error');
+    .then(text => {
+        try {
+            const data = JSON.parse(text); // Try to parse it as JSON
+            if (data.success) {
+                showNotification(data.message, 'success');
+                window.location.href = "index.php"; // Redirect to the index page
+            } else {
+                showNotification(data.message || 'Failed to process order.', 'error');
+            }
+        } catch (error) {
+            console.error('Error parsing JSON:', error);
+            console.log('Response received:', text); // Log the actual response
+            showNotification('An error occurred. Please try again.', 'error');
         }
     })
     .catch(error => {

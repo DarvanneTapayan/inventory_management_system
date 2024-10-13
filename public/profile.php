@@ -30,5 +30,3 @@ $user = [
 </div>
 
 <?php include '../templates/footer.php'; ?>
-
-Lorem ipsum dolor sit amet consectetur, adipisicing elit. Aliquam modi aperiam numquam cumque tempore molestiae ex quasi, nesciunt iste nostrum. Velit nostrum debitis accusantium, distinctio odio quod quos harum voluptatem.

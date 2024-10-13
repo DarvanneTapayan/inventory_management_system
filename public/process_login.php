@@ -1,23 +1,27 @@
 <?php
 session_start();
-require_once '../app/controllers/UserController.php';
+require_once '../app/classes/User.php'; // Ensure you have the correct path
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = $_POST['username'];
     $password = $_POST['password'];
 
-    $userController = new UserController();
-    $user = $userController->login($username, $password);
+    $user = new User();
+    $loginResult = $user->login($username, $password); // Adjust this method as per your User class
+    if ($loginResult) {
+        // Set session variables
+        $_SESSION['username'] = $username;
+        $_SESSION['user_id'] = $loginResult['id'];
+        $_SESSION['role'] = $loginResult['role'];
 
-    if ($user) {
-        $_SESSION['user_id'] = $user['id']; // Store user ID in session
-        $_SESSION['username'] = $user['username']; // Store username
-        $_SESSION['role'] = $user['role']; // Store user role
-        echo json_encode(['success' => true, 'message' => 'Login successful!']);
+        // Return a success response
+        echo json_encode(['success' => true, 'message' => 'Login successful.']);
+        exit();
     } else {
-        echo json_encode(['success' => false, 'message' => 'Invalid username or password.']);
+        // Set an error message for the login failure
+        $_SESSION['error'] = "Invalid username or password.";
+        echo json_encode(['success' => false, 'message' => $_SESSION['error']]); // Return error message
+        exit();
     }
-} else {
-    echo json_encode(['success' => false, 'message' => 'Invalid request method.']);
 }
 ?>

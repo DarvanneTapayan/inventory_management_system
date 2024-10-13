@@ -41,6 +41,22 @@ class OrderItem {
         }
     }
 
+    // New method to get order items by order ID
+    public function getOrderItemsByOrderId($order_id) {
+        try {
+            $query = "SELECT oi.*, p.name AS product_name FROM " . $this->table . " oi
+                      LEFT JOIN products p ON oi.product_id = p.id
+                      WHERE oi.order_id = :order_id";
+            $stmt = $this->conn->prepare($query);
+            $stmt->bindParam(':order_id', $order_id);
+            $stmt->execute();
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (Exception $e) {
+            error_log("Error retrieving order items by order ID: " . $e->getMessage());
+            return [];
+        }
+    }
+
     public function deleteOrderItem($order_item_id) {
         try {
             $query = "DELETE FROM " . $this->table . " WHERE id = :order_item_id";
