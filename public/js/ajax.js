@@ -15,7 +15,7 @@ function ajaxSubmitForm(form) {
     .then(data => {
         if (data.success) {
             showNotification('Order placed successfully!', 'success');
-            window.location.href = 'index.php';
+            window.location.href = 'index.php'; // Redirect after successful order
         } else {
             console.error('Error from server:', data.message);
             showNotification(data.message || 'Failed to place order.', 'error');

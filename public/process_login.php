@@ -1,17 +1,19 @@
 <?php
-require_once '../app/classes/User.php';
 session_start();
+require_once '../app/controllers/UserController.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = $_POST['username'];
     $password = $_POST['password'];
 
-    $user = new User();
-    $loggedInUser = $user->login($username, $password);
-    if ($loggedInUser) {
-        $_SESSION['username'] = $loggedInUser['username'];
-        $_SESSION['role'] = $loggedInUser['role'];
-        echo json_encode(['success' => true]);
+    $userController = new UserController();
+    $user = $userController->login($username, $password);
+
+    if ($user) {
+        $_SESSION['user_id'] = $user['id']; // Store user ID in session
+        $_SESSION['username'] = $user['username']; // Store username
+        $_SESSION['role'] = $user['role']; // Store user role
+        echo json_encode(['success' => true, 'message' => 'Login successful!']);
     } else {
         echo json_encode(['success' => false, 'message' => 'Invalid username or password.']);
     }

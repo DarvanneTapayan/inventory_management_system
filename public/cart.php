@@ -1,4 +1,3 @@
-<!-- public/cart.php -->
 <?php include '../templates/header.php'; ?>
 <?php include '../templates/navbar.php'; ?>
 <?php
@@ -7,7 +6,7 @@
 $cartItems = isset($_SESSION['cart']) ? $_SESSION['cart'] : [];
 $totalAmount = 0;
 ?>
-
+<script src="../public/js/cart.js"></script>
 <div class="container">
     <h2>Your Shopping Cart</h2>
     <?php if (!empty($cartItems)): ?>
@@ -15,11 +14,11 @@ $totalAmount = 0;
             <table>
                 <thead>
                     <tr>
-                        <th>Product</th>
-                        <th>Quantity</th>
-                        <th>Price</th>
-                        <th>Total</th>
-                        <th>Actions</th>
+                        <th>Price | </th>
+                        <th>Product | </th>
+                        <th>Quantity | </th>
+                        <th>Total | </th>
+                        <th>Actions | </th>
                     </tr>
                 </thead>
                 <tbody>
@@ -35,11 +34,11 @@ $totalAmount = 0;
                             $totalAmount += $itemTotal;
                             ?>
                             <tr data-product-id="<?php echo $productData['id']; ?>">
+                                <td>$<?php echo number_format($productData['price'], 2); ?></td>
                                 <td><?php echo htmlspecialchars($productData['name']); ?></td>
                                 <td>
                                     <input type="number" class="quantity" value="<?php echo $quantity; ?>" min="1">
                                 </td>
-                                <td>$<?php echo number_format($productData['price'], 2); ?></td>
                                 <td class="item-total">$<?php echo number_format($itemTotal, 2); ?></td>
                                 <td>
                                     <button class="btn-secondary remove-item" data-product-id="<?php echo $productData['id']; ?>">Remove</button>

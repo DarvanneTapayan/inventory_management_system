@@ -10,9 +10,9 @@ class OrderItem {
         $this->conn = $database->getConnection();
     }
 
-    public function addOrderItem($order_id, $product_id, $quantity, $price) {
+    public function create($order_id, $product_id, $quantity, $price) {
         try {
-            $query = "INSERT INTO " . $this->table . " (order_id, product_id, quantity, price)
+            $query = "INSERT INTO " . $this->table . " (order_id, product_id, quantity, price) 
                       VALUES (:order_id, :product_id, :quantity, :price)";
             $stmt = $this->conn->prepare($query);
             $stmt->bindParam(':order_id', $order_id);
@@ -21,14 +21,14 @@ class OrderItem {
             $stmt->bindParam(':price', $price);
             return $stmt->execute();
         } catch (Exception $e) {
-            error_log("Error adding order item: " . $e->getMessage());
+            error_log("Error creating order item: " . $e->getMessage());
             return false;
         }
     }
 
     public function getOrderItems($order_id) {
         try {
-            $query = "SELECT oi.*, p.name as product_name FROM " . $this->table . " oi
+            $query = "SELECT oi.*, p.name AS product_name FROM " . $this->table . " oi
                       LEFT JOIN products p ON oi.product_id = p.id
                       WHERE oi.order_id = :order_id";
             $stmt = $this->conn->prepare($query);
@@ -38,6 +38,18 @@ class OrderItem {
         } catch (Exception $e) {
             error_log("Error retrieving order items: " . $e->getMessage());
             return [];
+        }
+    }
+
+    public function deleteOrderItem($order_item_id) {
+        try {
+            $query = "DELETE FROM " . $this->table . " WHERE id = :order_item_id";
+            $stmt = $this->conn->prepare($query);
+            $stmt->bindParam(':order_item_id', $order_item_id);
+            return $stmt->execute();
+        } catch (Exception $e) {
+            error_log("Error deleting order item: " . $e->getMessage());
+            return false;
         }
     }
 }

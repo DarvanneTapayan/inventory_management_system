@@ -10,9 +10,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         unset($_SESSION['cart'][$productId]);
         echo json_encode(['success' => true]);
     } else {
-        echo json_encode(['success' => false, 'message' => 'Product not found in cart.']);
+        echo json_encode(['success' => false, 'message' => 'Product succesfully removed from cart.']);
     }
 } else {
     echo json_encode(['success' => false, 'message' => 'Invalid request method.']);
 }
-?>

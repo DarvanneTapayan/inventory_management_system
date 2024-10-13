@@ -1,8 +1,7 @@
-<!-- public/checkout.php -->
 <?php include '../templates/header.php'; ?>
 <?php include '../templates/navbar.php'; ?>
-<?php
 
+<?php
 // Check if the cart exists in the session
 $cartItems = isset($_SESSION['cart']) ? $_SESSION['cart'] : [];
 $totalAmount = 0;

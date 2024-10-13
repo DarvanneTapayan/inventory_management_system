@@ -1,10 +1,13 @@
 // public/js/cart.js
 document.addEventListener('DOMContentLoaded', () => {
     const removeButtons = document.querySelectorAll('.remove-item');
-    
+
     removeButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            const productId = this.dataset.productId;
+        button.addEventListener('click', function(event) {
+            event.preventDefault(); // Prevent the default action of the button
+
+            const productId = this.dataset.productId; // Get the product ID from the button's data attribute
+            const row = this.closest('tr'); // Get the closest row for removal
 
             // Remove item from the session cart via AJAX
             fetch('remove_from_cart.php', {
@@ -17,8 +20,11 @@ document.addEventListener('DOMContentLoaded', () => {
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
+                    // Notify the user
                     showNotification('Item removed from cart.', 'success');
-                    this.closest('tr').remove(); // Remove the row from the cart table
+
+                    // Remove the row from the cart table
+                    row.remove();
                     updateTotalAmount(); // Update total amount displayed
                 } else {
                     showNotification(data.message || 'Failed to remove item.', 'error');
@@ -39,6 +45,21 @@ document.addEventListener('DOMContentLoaded', () => {
             total += parseFloat(totalElement.innerText.replace('$', ''));
         });
 
-        totalAmountElement.innerText = total.toFixed(2);
+        totalAmountElement.innerText = total.toFixed(2); // Update the displayed total amount
+    }
+
+    function showNotification(message, type) {
+        // Create a notification element
+        const notification = document.createElement('div');
+        notification.className = `notification ${type}`; // Add class for styling
+        notification.innerText = message;
+
+        // Append the notification to the body
+        document.body.appendChild(notification);
+
+        // Automatically remove the notification after a delay
+        setTimeout(() => {
+            notification.remove();
+        }, 3000); // Change duration as needed
     }
 });
