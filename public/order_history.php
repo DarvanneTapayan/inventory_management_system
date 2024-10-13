@@ -36,7 +36,7 @@ $userOrders = $orderController->getUserOrders($userId);
                         <td><?php echo htmlspecialchars($order['id']); ?></td>
                         <td><?php echo htmlspecialchars($order['status']); ?></td>
                         <td>$<?php echo number_format($order['total_amount'], 2); ?></td>
-                        <td><?php echo htmlspecialchars($order['created_at']); ?></td>
+                        <td><?php echo date('F j, Y, g:i a', strtotime($order['created_at'])); ?></td> <!-- Format date -->
                         <td>
                             <a href="order_details.php?id=<?php echo htmlspecialchars($order['id']); ?>">View Details</a>
                             <?php if ($order['status'] === 'pending'): // Check if the order can be canceled ?>
