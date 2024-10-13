@@ -49,10 +49,10 @@ class OrderController {
         return $this->order->getUserOrders($user_id);
     }
 
-    public function updateOrderStatus($order_id, $status) {
-        return $this->order->updateOrderStatus($order_id, $status);
+    public function updateOrderStatus($orderId, $status) {
+        return $this->order->updateOrderStatus($orderId, $status);
     }
-
+    
     public function getAllOrders() {
         return $this->order->getAllOrders();
     }

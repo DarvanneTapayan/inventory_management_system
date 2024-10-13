@@ -26,6 +26,7 @@ require_once '../app/classes/Product.php';
             <select id="payment_method" name="payment_method" required>
                 <option value="credit_card">Credit Card</option>
                 <option value="paypal">PayPal</option>
+                <option value="cash_on_delivery">Cash on Delivery</option> <!-- Added COD option -->
             </select>
         </div>
         <div class="form-group">

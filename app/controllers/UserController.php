@@ -31,5 +31,10 @@ class UserController {
     public function deleteUser($userId) {
         return $this->user->delete($userId);
     }
+    public function getUsernameById($userId) {
+        $user = $this->user->getUserById($userId);
+        return $user ? $user['username'] : 'Unknown'; // Return username or 'Unknown' if user not found
+    }
+    
 }
 ?>
