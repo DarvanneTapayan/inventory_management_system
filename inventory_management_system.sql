@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Oct 12, 2024 at 09:44 AM
+-- Generation Time: Oct 13, 2024 at 07:14 AM
 -- Server version: 8.3.0
 -- PHP Version: 8.2.18
 
@@ -33,7 +33,15 @@ CREATE TABLE IF NOT EXISTS `categories` (
   `name` varchar(100) NOT NULL,
   `description` text,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `categories`
+--
+
+INSERT INTO `categories` (`id`, `name`, `description`) VALUES
+(4, 'Beverage', 'MA INOM'),
+(5, 'Cakes', 'MA KAON');
 
 -- --------------------------------------------------------
 
@@ -73,15 +81,16 @@ CREATE TABLE IF NOT EXISTS `inventory` (
   `quantity_in_stock` int NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `idx_inventory_product` (`product_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `inventory`
 --
 
 INSERT INTO `inventory` (`id`, `product_id`, `quantity_in_stock`) VALUES
-(1, 1, 100),
-(2, 2, 50);
+(6, 15, 0),
+(5, 14, 0),
+(4, 13, 100);
 
 -- --------------------------------------------------------
 
@@ -153,15 +162,15 @@ CREATE TABLE IF NOT EXISTS `products` (
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   KEY `idx_product_category` (`category_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `products`
 --
 
 INSERT INTO `products` (`id`, `name`, `description`, `price`, `category_id`, `image_url`, `created_at`) VALUES
-(5, 'Chocolate Cake', '123', 123.00, 1, NULL, '2024-10-11 13:49:50'),
-(4, 'Strawberry Cake', '123', 123.00, 1, '/public/images/default-cake.jpg', '2024-10-11 13:47:12');
+(15, 'Chocolate Cake', 'test', 123.00, 5, 'https://media.istockphoto.com/id/153505933/photo/piece-of-dark-chocolate-cake.jpg?s=2048x2048&w=is&k=20&c=VBvxgfM889Ungq38k4NCsQUd5YoPr8-ezXiKlk3LJ7o=', '2024-10-13 06:56:06'),
+(13, 'Strawberry Cake', 'test', 39.00, 1, 'https://media.istockphoto.com/id/861539268/photo/slice-of-strawberry-cheesecake.jpg?s=2048x2048&w=is&k=20&c=LN9Ef1d5LjLEaajGF6D5oCXMBV3U3tIbc1toFCBHM2I=', '2024-10-13 06:44:31');
 
 -- --------------------------------------------------------
 
