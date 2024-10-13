@@ -9,6 +9,7 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
 
 // Include necessary classes
 require_once '../app/classes/Sale.php'; 
+require_once '../app/classes/Order.php'; // Include Order class for user information
 $sale = new Sale(); 
 
 // Fetch sales data
@@ -39,11 +40,8 @@ $salesData = $sale->getAllSales();
                         <td><?php echo htmlspecialchars($sale['product_name']); ?></td>
                         <td><?php echo htmlspecialchars($sale['quantity']); ?></td>
                         <td>$<?php echo number_format($sale['sale_amount'], 2); ?></td>
-                        <td><?php echo htmlspecialchars($sale['sale_date']); ?></td>
-                        <td><?php echo htmlspecialchars($sale['user_name'] ?: 'Unknown'); ?></td> <!-- Display user name -->
-                        <td>
-                            <a href="sale_details.php?id=<?php echo htmlspecialchars($sale['order_id']); ?>">View Details</a> <!-- Link to view details -->
-                        </td>
+                        <td><?php echo date("F j, Y, g:i A", strtotime($sale['sale_date'])); ?></td> <!-- Format sale date -->
+                        <td><?php echo htmlspecialchars($sale['user_name'] ?? 'Unknown'); ?></td> <!-- Display user name -->
                     </tr>
                 <?php endforeach; ?>
             </tbody>

@@ -33,14 +33,8 @@ class Sale {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    // Method to get sale details by ID
     public function getSaleDetails($saleId) {
-        $query = "SELECT s.*, p.name AS product_name, u.username AS user_name 
-                  FROM " . $this->table . " s
-                  JOIN products p ON s.product_id = p.id
-                  JOIN orders o ON s.order_id = o.id
-                  JOIN users u ON o.user_id = u.id
-                  WHERE s.id = :sale_id";
+        $query = "SELECT * FROM " . $this->table . " WHERE id = :sale_id";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(':sale_id', $saleId);
         $stmt->execute();

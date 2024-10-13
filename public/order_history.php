@@ -1,4 +1,4 @@
-<?php 
+<?php
 include '../templates/header.php'; 
 include '../templates/navbar.php'; 
 
@@ -39,6 +39,9 @@ $userOrders = $orderController->getUserOrders($userId);
                         <td><?php echo htmlspecialchars($order['created_at']); ?></td>
                         <td>
                             <a href="order_details.php?id=<?php echo htmlspecialchars($order['id']); ?>">View Details</a>
+                            <?php if ($order['status'] === 'pending'): // Check if the order can be canceled ?>
+                                | <a href="cancel_order.php?id=<?php echo htmlspecialchars($order['id']); ?>">Cancel Order</a>
+                            <?php endif; ?>
                         </td>
                     </tr>
                 <?php endforeach; ?>

@@ -1,9 +1,19 @@
 <?php include '../templates/header.php'; ?>
 <?php include '../templates/navbar.php'; ?>
+
 <?php
 if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
     header("Location: index.php");
     exit();
+}
+
+// Display success or error message
+if (isset($_SESSION['success'])) {
+    echo "<div class='success-message'>" . htmlspecialchars($_SESSION['success']) . "</div>";
+    unset($_SESSION['success']); // Clear the message after displaying
+} elseif (isset($_SESSION['error'])) {
+    echo "<div class='error-message'>" . htmlspecialchars($_SESSION['error']) . "</div>";
+    unset($_SESSION['error']); // Clear the message after displaying
 }
 
 require_once '../app/controllers/ProductController.php';

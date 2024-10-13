@@ -27,5 +27,10 @@ class InventoryController {
     public function insertStock($product_id) {
         return $this->inventory->insertStock($product_id);
     }
+
+    // New method to set stock quantity directly
+    public function setStock($product_id, $quantity) {
+        return $this->inventory->setStock($product_id, $quantity);
+    }
 }
 ?>

@@ -38,7 +38,7 @@ class Order {
             return false;
         }
     }
-    
+
     public function getOrderDetails($order_id) {
         try {
             $query = "SELECT o.*, u.username, u.email FROM " . $this->table . " o 
@@ -80,31 +80,11 @@ class Order {
         }
     }
 
-    public function getOrdersByStatus($status) {
-        try {
-            $query = "SELECT * FROM " . $this->table . " WHERE status = :status ORDER BY created_at DESC";
-            $stmt = $this->conn->prepare($query);
-            $stmt->bindParam(':status', $status);
-            $stmt->execute();
-            return $stmt->fetchAll(PDO::FETCH_ASSOC);
-        } catch (Exception $e) {
-            error_log("Error retrieving orders by status: " . $e->getMessage());
-            return [];
-        }
-    }
-
-    public function getAllOrders() {
-        try {
-            $query = "SELECT o.*, u.username FROM " . $this->table . " o
-                      LEFT JOIN users u ON o.user_id = u.id
-                      ORDER BY o.created_at DESC";
-            $stmt = $this->conn->prepare($query);
-            $stmt->execute();
-            return $stmt->fetchAll(PDO::FETCH_ASSOC);
-        } catch (Exception $e) {
-            error_log("Error retrieving all orders: " . $e->getMessage());
-            return [];
-        }
+    public function cancelOrder($order_id) {
+        $query = "UPDATE " . $this->table . " SET status = 'canceled' WHERE id = :order_id";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':order_id', $order_id);
+        return $stmt->execute();
     }
 }
 ?>

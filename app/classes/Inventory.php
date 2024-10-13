@@ -17,7 +17,7 @@ class Inventory {
         $stmt->bindParam(':quantity', $quantity);
         return $stmt->execute();
     }
-
+    
     public function removeStock($product_id, $quantity) {
         $query = "UPDATE " . $this->table . " SET quantity_in_stock = quantity_in_stock - :quantity WHERE product_id = :product_id";
         $stmt = $this->conn->prepare($query);
@@ -47,5 +47,14 @@ class Inventory {
         $stmt->bindParam(':product_id', $product_id);
         return $stmt->execute();
     }
+
+    public function setStock($productId, $quantity) {
+        $query = "UPDATE " . $this->table . " SET quantity_in_stock = :quantity WHERE product_id = :product_id";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':product_id', $productId);
+        $stmt->bindParam(':quantity', $quantity);
+        return $stmt->execute();
+    }
+    
 }
 ?>
