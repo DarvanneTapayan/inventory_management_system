@@ -7,7 +7,7 @@
 - **Username:** `Group_42_admin`
 - **Password:** `Group_42_admin`
 
-### Customer Login:
+### Customer Login with inital data:
 - **Username:** `user2`
 - **Password:** `user2`
 ### Customer Login without inital data:
