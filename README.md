@@ -11,7 +11,7 @@
 ## Database Setup
 
 To set up the database, use the following SQL file:
-- **SQL database creation:** `name of the database should be inventory_management_system`
+- **SQL database creation:** `create a new database in phpmyadmin name the database inventory_management_system`
 - **SQL file:** `then export inventory_management_system.sql on the newly created inventory_management_system database`
 
 ## Routes
