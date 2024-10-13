@@ -5,8 +5,8 @@
 - **Password:** `admin123`
 
 ### Customer Login:
-- **Username:** `user123`
-- **Password:** `user123`
+- **Username:** `user2`
+- **Password:** `user2`
 
 ## Database Setup
 
