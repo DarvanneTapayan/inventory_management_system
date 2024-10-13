@@ -34,6 +34,12 @@ class Inventory {
         return $stmt->fetchColumn();
     }
 
+    // Method to check if enough stock is available
+    public function checkStock($product_id, $quantity) {
+        $currentStock = $this->getStock($product_id);
+        return $currentStock >= $quantity; // Return true if enough stock is available
+    }
+
     // Method to insert stock entry if it doesn't exist
     public function insertStock($product_id) {
         $query = "INSERT INTO " . $this->table . " (product_id, quantity_in_stock) VALUES (:product_id, 0)";
@@ -42,5 +48,4 @@ class Inventory {
         return $stmt->execute();
     }
 }
-
 ?>

@@ -3,53 +3,77 @@ session_start();
 require_once '../app/classes/Order.php';
 require_once '../app/classes/OrderItem.php';
 require_once '../app/classes/Product.php';
-require_once '../app/classes/Inventory.php'; // Include Inventory class
+require_once '../app/classes/Inventory.php';
 
-// Enable error reporting
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
+header('Content-Type: application/json'); // Ensure the response is JSON
 
-// Set content type to JSON
-header('Content-Type: application/json');
-
-// Check if the user is logged in and the request method is POST
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_SESSION['user_id'])) { 
-    $userId = $_SESSION['user_id']; 
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_SESSION['user_id'])) {
+    $userId = $_SESSION['user_id'];
     $totalAmount = $_POST['total_amount'];
     $paymentMethod = $_POST['payment_method'];
     $address = $_POST['address'];
+    $orderType = $_POST['order_type'];
+    $reservationDate = $_POST['reservation_date'];
 
-    // Validate incoming data
-    if (empty($totalAmount) || empty($paymentMethod) || empty($address)) {
-        echo json_encode(['success' => false, 'message' => 'All fields are required.']);
+    // Log incoming data for debugging
+    error_log("Received Data: " . print_r($_POST, true));
+
+    // Validate incoming data and check for empty fields
+    $emptyFields = [];
+    if (empty($totalAmount)) $emptyFields[] = 'total_amount';
+    if (empty($paymentMethod)) $emptyFields[] = 'payment_method';
+    if (empty($address)) $emptyFields[] = 'address';
+    if (empty($orderType)) $emptyFields[] = 'order_type';
+    if (empty($reservationDate)) $emptyFields[] = 'reservation_date';
+
+    // Log empty fields
+    if (!empty($emptyFields)) {
+        error_log("Empty fields: " . implode(', ', $emptyFields));
+        echo json_encode(['success' => false, 'message' => 'The following fields are required: ' . implode(', ', $emptyFields)]);
         exit();
     }
 
     // Create a new order
     $order = new Order();
-    $orderId = $order->create($userId, 'pending', $totalAmount, $paymentMethod, $address);
+    $orderId = $order->create($userId, 'pending', $totalAmount, $paymentMethod, $address, $reservationDate, $orderType);
 
+    // Check if the order creation was successful
     if ($orderId) {
         $orderItem = new OrderItem();
-        $inventory = new Inventory(); // Create an instance of Inventory
+        $inventory = new Inventory();
+        
         foreach ($_SESSION['cart'] as $productId => $quantity) {
             $product = new Product();
             $productData = $product->getProductById($productId);
-
-            if ($productData) {
-                if ($orderItem->create($orderId, $productId, $quantity, $productData['price'])) {
-                    // Remove stock after successfully adding the order item
-                    $inventory->removeStock($productId, $quantity);
+            if ($productData && $quantity > 0) {
+                if ($inventory->checkStock($productId, $quantity)) {
+                    if ($orderItem->create($orderId, $productId, $quantity, $productData['price'])) {
+                        $inventory->removeStock($productId, $quantity);
+                    } else {
+                        error_log("Failed to create order item for product ID: $productId");
+                        echo json_encode(['success' => false, 'message' => 'Failed to create order item for product ID: ' . $productId]);
+                        exit();
+                    }
                 } else {
-                    // Log error if order item creation fails
-                    error_log("Failed to create order item for product ID: $productId");
+                    error_log("Not enough stock for product ID: $productId");
+                    echo json_encode(['success' => false, 'message' => 'Not enough stock for product ID: ' . $productId]);
+                    exit();
                 }
+            } else {
+                error_log("Invalid product ID or quantity for product ID: $productId");
+                echo json_encode(['success' => false, 'message' => 'Invalid product ID or quantity for product ID: ' . $productId]);
+                exit();
             }
         }
-        unset($_SESSION['cart']); // Clear the cart after successful order placement
+
+        // Clear the cart
+        unset($_SESSION['cart']);
         echo json_encode(['success' => true, 'message' => 'Order placed successfully!']);
     } else {
-        echo json_encode(['success' => false, 'message' => 'Failed to create order.']);
+        error_log("Failed to create order. SQL Error: " . implode(", ", $order->getConnection()->errorInfo()));
+        echo json_encode(['success' => false, 'message' => 'Failed to create order. Please check the server logs for more details.']);
     }
 } else {
     echo json_encode(['success' => false, 'message' => 'Invalid request method or user not logged in.']);

@@ -9,29 +9,36 @@ class Order {
         $database = new Database();
         $this->conn = $database->getConnection();
     }
-    
-    public function create($user_id, $status = 'pending', $total_amount, $payment_method, $address) {
+
+    public function getConnection() {
+        return $this->conn; // Allow access to the connection for logging
+    }
+
+    public function create($user_id, $status, $total_amount, $payment_method, $address, $reservation_date, $order_type) {
         try {
-            $query = "INSERT INTO orders (user_id, status, total_amount, payment_method, address, created_at)
-                      VALUES (:user_id, :status, :total_amount, :payment_method, :address, NOW())";
+            $query = "INSERT INTO orders (user_id, status, total_amount, payment_method, address, created_at, reservation_date, order_type)
+                      VALUES (:user_id, :status, :total_amount, :payment_method, :address, NOW(), :reservation_date, :order_type)";
             $stmt = $this->conn->prepare($query);
             $stmt->bindParam(':user_id', $user_id);
             $stmt->bindParam(':status', $status);
             $stmt->bindParam(':total_amount', $total_amount);
             $stmt->bindParam(':payment_method', $payment_method);
             $stmt->bindParam(':address', $address);
+            $stmt->bindParam(':reservation_date', $reservation_date);
+            $stmt->bindParam(':order_type', $order_type);
     
             if ($stmt->execute()) {
                 return $this->conn->lastInsertId(); // Return the order ID
+            } else {
+                error_log("Failed to insert order. SQL Error: " . implode(", ", $stmt->errorInfo()));
+                return false; // Return false if the order creation fails
             }
-            error_log("Database Error: " . implode(", ", $stmt->errorInfo())); // Log any SQL error
-            return false; // Return false if the order creation fails
         } catch (Exception $e) {
-            error_log("Error creating order: " . $e->getMessage()); // Log error message
+            error_log("Error creating order: " . $e->getMessage());
             return false;
         }
     }
-
+    
     public function getOrderDetails($order_id) {
         try {
             $query = "SELECT o.*, u.username, u.email FROM " . $this->table . " o 

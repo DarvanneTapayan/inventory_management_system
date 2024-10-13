@@ -20,9 +20,12 @@ class InventoryController {
         return $this->inventory->getStock($product_id);
     }
 
+    public function checkStock($product_id, $quantity) {
+        return $this->inventory->checkStock($product_id, $quantity);
+    }
+
     public function insertStock($product_id) {
         return $this->inventory->insertStock($product_id);
     }
 }
-
 ?>

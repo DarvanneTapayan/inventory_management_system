@@ -28,6 +28,17 @@ require_once '../app/classes/Product.php';
                 <option value="paypal">PayPal</option>
             </select>
         </div>
+        <div class="form-group">
+            <label for="order_type">Order Type:</label>
+            <select id="order_type" name="order_type" required>
+                <option value="pickup">Pickup</option>
+                <option value="delivery">Delivery</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="reservation_date">Reservation Date:</label>
+            <input type="date" id="reservation_date" name="reservation_date" required>
+        </div>
         <h3>Order Summary</h3>
         <ul>
             <?php foreach ($cartItems as $productId => $quantity): 
@@ -47,6 +58,7 @@ require_once '../app/classes/Product.php';
     </form>
 </div>
 
+<!-- Include AJAX and Notifications Scripts -->
 <script src="../public/js/ajax.js"></script>
 <script src="../public/js/notifications.js"></script>
 <script>

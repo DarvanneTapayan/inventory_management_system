@@ -8,8 +8,8 @@ class OrderController {
         $this->order = new Order();
     }
 
-    public function create($user_id, $status, $total_amount, $payment_method, $address) {
-        return $this->order->create($user_id, $status, $total_amount, $payment_method, $address);
+    public function create($user_id, $status, $total_amount, $payment_method, $address, $reservation_date, $order_type) {
+        return $this->order->create($user_id, $status, $total_amount, $payment_method, $address, $reservation_date, $order_type);
     }
 
     public function getOrderDetails($order_id) {
