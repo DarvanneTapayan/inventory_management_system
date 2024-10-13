@@ -2,6 +2,11 @@
 session_start();
 require_once '../app/classes/Order.php';
 require_once '../app/classes/OrderItem.php';
+require_once '../app/classes/Product.php';
+
+// Enable error reporting
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 
 // Set content type to JSON
 header('Content-Type: application/json');
@@ -30,7 +35,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_SESSION['user_id'])) {
             $productData = $product->getProductById($productId);
 
             if ($productData) {
-                $orderItem->create($orderId, $productId, $quantity, $productData['price']);
+                if (!$orderItem->create($orderId, $productId, $quantity, $productData['price'])) {
+                    // Log error if order item creation fails
+                    error_log("Failed to create order item for product ID: $productId");
+                }
             }
         }
         unset($_SESSION['cart']); // Clear the cart after successful order placement

@@ -1,4 +1,3 @@
-// public/js/validation.js
 function validateForm(form) {
     let isValid = true;
     const inputs = form.querySelectorAll('input, textarea');

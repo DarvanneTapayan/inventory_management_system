@@ -9,6 +9,7 @@ class Order {
         $database = new Database();
         $this->conn = $database->getConnection();
     }
+    
     public function create($user_id, $status = 'pending', $total_amount, $payment_method, $address) {
         try {
             $query = "INSERT INTO orders (user_id, status, total_amount, payment_method, address, created_at)

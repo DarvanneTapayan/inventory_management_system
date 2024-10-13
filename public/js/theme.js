@@ -1,4 +1,3 @@
-// public/js/theme.js
 function toggleTheme() {
     document.body.classList.toggle('dark-mode');
     const currentTheme = document.body.classList.contains('dark-mode') ? 'dark' : 'light';

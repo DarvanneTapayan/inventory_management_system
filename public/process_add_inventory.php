@@ -1,4 +1,3 @@
-<!-- public/process_add_inventory.php -->
 <?php
 session_start();
 require_once '../app/controllers/InventoryController.php';

@@ -1,4 +1,3 @@
-// public/js/cart.js
 document.addEventListener('DOMContentLoaded', () => {
     const removeButtons = document.querySelectorAll('.remove-item');
 

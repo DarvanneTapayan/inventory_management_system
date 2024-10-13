@@ -1,4 +1,3 @@
-<!-- public/add_inventory.php -->
 <?php include '../templates/header.php'; ?>
 <?php include '../templates/navbar.php'; ?>
 <div class="container">
