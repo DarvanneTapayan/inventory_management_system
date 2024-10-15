@@ -12,7 +12,12 @@ function ajaxSubmitForm(form) {
             const data = JSON.parse(text); // Try to parse it as JSON
             if (data.success) {
                 showNotification(data.message, 'success');
-                window.location.href = "index.php"; // Redirect to the index page
+                // Check the user role from the data and redirect accordingly
+                if (data.role === 'admin') {
+                    window.location.href = "admin_dashboard.php"; // Redirect to the admin dashboard
+                } else {
+                    window.location.href = "index.php"; // Redirect to the index page
+                }
             } else {
                 showNotification(data.message || 'Failed to process order.', 'error');
             }

@@ -14,8 +14,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $_SESSION['user_id'] = $loginResult['id'];
         $_SESSION['role'] = $loginResult['role'];
 
-        // Return a success response
-        echo json_encode(['success' => true, 'message' => 'Login successful.']);
+        // Return a success response with user role
+        echo json_encode(['success' => true, 'message' => 'Login successful.', 'role' => $_SESSION['role']]);
         exit();
     } else {
         // Set an error message for the login failure
@@ -24,4 +24,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit();
     }
 }
+error_log("User role after login: " . $_SESSION['role']);
 ?>

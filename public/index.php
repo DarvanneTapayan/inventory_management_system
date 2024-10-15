@@ -1,5 +1,13 @@
-<?php include '../templates/header.php'; ?>
-<?php include '../templates/navbar.php'; ?>
+<?php
+include '../templates/header.php';
+include '../templates/navbar.php';
+// Redirect admin users to the admin dashboard
+if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin') {
+    header("Location: admin_dashboard.php");
+    exit();
+}
+
+?>
 
 <div class="container">
     <section class="hero">
@@ -11,20 +19,20 @@
         <h2>Featured Products</h2>
 
         <section class="categories">
-        <div class="categories-dropdown">
-            <select id="categorySelect" onchange="location = this.value;">
-                <option value="">Select a category</option>
-                <?php
-                require_once '../app/classes/Category.php';
-                $category = new Category();
-                $categories = $category->getAll();
-                foreach ($categories as $cat) {
-                    echo "<option value='product.php?category_id=" . $cat['id'] . "'>" . htmlspecialchars($cat['name']) . "</option>";
-                }
-                ?>
-                <option value="product.php">All</option>
-            </select>
-        </div>
+            <div class="categories-dropdown">
+                <select id="categorySelect" onchange="location = this.value;">
+                    <option value="">Select a category</option>
+                    <?php
+                    require_once '../app/classes/Category.php';
+                    $category = new Category();
+                    $categories = $category->getAll();
+                    foreach ($categories as $cat) {
+                        echo "<option value='product.php?category_id=" . $cat['id'] . "'>" . htmlspecialchars($cat['name']) . "</option>";
+                    }
+                    ?>
+                    <option value="product.php">All</option>
+                </select>
+            </div>
         </section>
 
         <div class="product-grid">
@@ -62,26 +70,26 @@
     </section>
 
     <section>
-    <div class="contact-container">
-    <div class="contact-form-container">
-        <h2>Contact Us</h2>
-        <form action="send_message.php" method="POST">
-            <div class="contact-form-group">
-                <label for="name">Name:</label>
-                <input type="text" id="name" name="name" required>
+        <div class="contact-container">
+            <div class="contact-form-container">
+                <h2>Contact Us</h2>
+                <form action="send_message.php" method="POST">
+                    <div class="contact-form-group">
+                        <label for="name">Name:</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="contact-form-group">
+                        <label for="email">Email:</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="contact-form-group">
+                        <label for="message">Message:</label>
+                        <textarea id="message" name="message" rows="5" required></textarea>
+                    </div>
+                    <button type="submit" class="btn-primary">Send Message</button>
+                </form>
             </div>
-            <div class="contact-form-group">
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="email" required>
-            </div>
-            <div class="contact-form-group">
-                <label for="message">Message:</label>
-                <textarea id="message" name="message" rows="5" required></textarea>
-            </div>
-            <button type="submit" class="btn-primary">Send Message</button>
-        </form>
-    </div>
-    </div>
+        </div>
     </section>
 </div>
 

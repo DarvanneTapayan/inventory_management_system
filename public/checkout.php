@@ -5,12 +5,45 @@
 $cartItems = isset($_SESSION['cart']) ? $_SESSION['cart'] : [];
 $totalAmount = 0;
 
+// Check if the cart is empty
 if (empty($cartItems)) {
     echo "<div class='container'><h2>Your cart is empty. Please add products to your cart before checking out.</h2></div>";
     exit();
 }
 
+// Include necessary classes
 require_once '../app/classes/Product.php';
+require_once '../app/controllers/InventoryController.php'; // Include InventoryController for stock checking
+$inventoryController = new InventoryController();
+
+$validCartItems = []; // To hold valid items
+$invalidItems = []; // To hold items with insufficient stock
+
+// Validate cart items against the stock
+foreach ($cartItems as $productId => $quantity) {
+    $stock = $inventoryController->getStock($productId); // Get current stock
+    if ($stock >= $quantity) {
+        $validCartItems[$productId] = $quantity; // Valid item
+        $productData = (new Product())->getProductById($productId); // Get product data for total calculation
+        $itemTotal = $quantity * $productData['price'];
+        $totalAmount += $itemTotal; // Add to total amount
+    } else {
+        $invalidItems[$productId] = $quantity; // Invalid item due to insufficient stock
+    }
+}
+
+if (!empty($invalidItems)) {
+    echo "<div class='container'><h2>Some items in your cart are no longer available in the requested quantity.</h2>";
+    echo "<p>Please adjust the quantities for these items:</p>";
+    echo "<ul>";
+    foreach ($invalidItems as $productId => $quantity) {
+        $productData = (new Product())->getProductById($productId);
+        echo "<li>" . htmlspecialchars($productData['name']) . " - Requested: " . $quantity . ", Available: " . $inventoryController->getStock($productId) . "</li>";
+    }
+    echo "</ul></div>";
+    exit();
+}
+
 ?>
 
 <div class="container">
@@ -42,14 +75,11 @@ require_once '../app/classes/Product.php';
         </div>
         <h3>Order Summary</h3>
         <ul>
-            <?php foreach ($cartItems as $productId => $quantity): 
+            <?php foreach ($validCartItems as $productId => $quantity): 
                 $product = new Product();
                 $productData = $product->getProductById($productId);
                 if ($productData) {
-                    $itemTotal = $quantity * $productData['price'];
-                    $totalAmount += $itemTotal; ?>
-                    <li><?php echo htmlspecialchars($productData['name']) . " x " . $quantity; ?></li>
-            <?php 
+                    echo "<li>" . htmlspecialchars($productData['name']) . " x " . $quantity . "</li>";
                 }
             endforeach; ?>
         </ul>
