@@ -22,7 +22,7 @@
     </div>
 </div>
 
-<script src="../public/js/notifications.js"></script> <!-- Include notifications.js first -->
+<script src="../public/js/notifications.js"></script>
 <script>
     document.querySelector('form[action="send_message.php"]').addEventListener('submit', function(event) {
         event.preventDefault(); // Prevent default form submission

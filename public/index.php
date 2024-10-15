@@ -1,6 +1,7 @@
 <?php
 include '../templates/header.php';
 include '../templates/navbar.php';
+
 // Redirect admin users to the admin dashboard
 if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin') {
     header("Location: admin_dashboard.php");
@@ -50,20 +51,28 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin') {
                     <h3>" . htmlspecialchars($prod['name']) . "</h3>
                     <p>" . htmlspecialchars($prod['description']) . "</p>
                     <p class='price'>$" . number_format($prod['price'], 2) . "</p>
-                    <p class='stock'>Quantity in Stock: " . htmlspecialchars($stock) . "</p>
-                    <form class='add-to-cart-form' onsubmit='event.preventDefault(); ajaxSubmitForm(this);' action='process_add_to_cart.php' method='POST'>
+                    <p class='stock'>Quantity in Stock: " . htmlspecialchars($stock) . "</p>";
+
+                // Check if the user is logged in
+                if (isset($_SESSION['username'])) {
+                    echo "<form class='add-to-cart-form' onsubmit='event.preventDefault(); ajaxSubmitForm(this);' action='process_add_to_cart.php' method='POST'>
                         <input type='hidden' name='product_id' value='" . $prod['id'] . "'>
                         <div class='form-group'>
                             <label for='quantity'>Quantity:</label>
                             <input type='number' id='quantity' name='quantity' value='1' min='1' max='" . htmlspecialchars($stock) . "' required>
                         </div>";
                 
-                if ($stock > 0) {
-                    echo "<button type='submit' class='btn-secondary'>Add to Cart</button>";
+                    if ($stock > 0) {
+                        echo "<button type='submit' class='btn-secondary'>Add to Cart</button>";
+                    } else {
+                        echo "<p class='out-of-stock'>This product is currently out of stock.</p>";
+                    }
+                    echo "</form>";
                 } else {
-                    echo "<p class='out-of-stock'>This product is currently out of stock.</p>";
+                    // Show message to guests
+                    echo "<p>Please <a href='login.php'>log in</a> or <a href='register.php'>register</a> to add items to your cart.</p>";
                 }
-                echo "</form></div>";
+                echo "</div>";
             }
             ?>
         </div>

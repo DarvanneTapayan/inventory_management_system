@@ -4,7 +4,15 @@
 
 $cartItems = isset($_SESSION['cart']) ? $_SESSION['cart'] : [];
 $totalAmount = 0;
+
+// Redirect if guest
+if (!isset($_SESSION['username'])) {
+    echo "<div class='container'><h2>You must be logged in to view your cart.</h2><a href='login.php' class='btn-primary'>Login</a> or <a href='register.php' class='btn-primary'>Register</a></div>";
+    include '../templates/footer.php';
+    exit();
+}
 ?>
+
 <script src="../public/js/cart.js"></script>
 <div class="container">
     <h2>Your Shopping Cart</h2>
@@ -13,11 +21,11 @@ $totalAmount = 0;
             <table>
                 <thead>
                     <tr>
-                        <th>Price | </th>
-                        <th>Product | </th>
-                        <th>Quantity | </th>
-                        <th>Total | </th>
-                        <th>Actions | </th>
+                        <th>Price</th>
+                        <th>Product</th>
+                        <th>Quantity</th>
+                        <th>Total</th>
+                        <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
