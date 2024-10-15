@@ -22,4 +22,39 @@
     </div>
 </div>
 
+<script src="../public/js/notifications.js"></script> <!-- Include notifications.js first -->
+<script>
+    document.querySelector('form[action="send_message.php"]').addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevent default form submission
+        ajaxSubmitForm(this); // Call your AJAX function
+    });
+
+    function ajaxSubmitForm(form) {
+        var formData = new FormData(form);
+        fetch(form.action, {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.text()) // Get the response as text first
+        .then(text => {
+            try {
+                const data = JSON.parse(text); // Try to parse it as JSON
+                if (data.success) {
+                    showNotification(data.message, 'success'); // Display success message in notification
+                } else {
+                    showNotification(data.message || 'Failed to send message.', 'error');
+                }
+            } catch (error) {
+                console.error('Error parsing JSON:', error);
+                console.log('Response received:', text); // Log the actual response
+                showNotification('An error occurred. Please try again.', 'error');
+            }
+        })
+        .catch(error => {
+            console.error('There has been a problem with your fetch operation:', error);
+            showNotification('An error occurred. Please try again.', 'error');
+        });
+    }
+</script>
+
 <?php include '../templates/footer.php'; ?>

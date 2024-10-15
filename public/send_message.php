@@ -2,20 +2,18 @@
 session_start();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Validate and sanitize input
-    $name = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_STRING);
-    $email = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
-    $message = filter_input(INPUT_POST, 'message', FILTER_SANITIZE_STRING);
+    // Sanitize input values
+    $name = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+    $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
+    $message = filter_input(INPUT_POST, 'message', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
-    // Check for required fields
+    // Validation for empty fields
     if (empty($name) || empty($email) || empty($message)) {
         echo json_encode(['success' => false, 'message' => 'All fields are required.']);
         exit();
     }
 
-    // Optionally, you can send the message via email here
-    // mail($to, $subject, $message, $headers);
-
+    // Simulate message processing
     echo json_encode(['success' => true, 'message' => "Thank you, $name. Your message has been received."]);
 } else {
     echo json_encode(['success' => false, 'message' => 'Invalid request method.']);
