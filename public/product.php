@@ -26,10 +26,21 @@ if (!$products) {
 
 <div class="container">
     <section>
-        <h1>Our Delicious Products</h1>
-        <p>Explore our wide range of mouthwatering cakes and pastries. Each item is lovingly baked with the finest ingredients to ensure the best taste. From classic favorites to unique creations, we have something to satisfy every sweet tooth. Take a look and find your next favorite treat!</p>
+        <?php if (isset($_SESSION['username']) && $_SESSION['role'] === 'admin'): ?>
+            <h1>Admin Guidelines</h1>
+            <p>As an admin, please follow these guidelines when managing products:</p>
+            <ul>
+                <li>Ensure all product details are accurate, including names, descriptions, and prices.</li>
+                <li>Regularly check inventory levels and update stock quantities as needed.</li>
+                <li>Approve or reject new product submissions based on quality and relevance.</li>
+                <li>Ensure that all products meet our quality standards before being published.</li>
+            </ul>
+        <?php else: ?>
+            <h1>Our Delicious Products</h1>
+            <p>Explore our wide range of mouthwatering cakes and pastries. Each item is lovingly baked with the finest ingredients to ensure the best taste. From classic favorites to unique creations, we have something to satisfy every sweet tooth. Take a look and find your next favorite treat!</p>
+        <?php endif; ?>
     </section>
-    
+
     <section class="categories">
         <div class="categories-dropdown">
             <select id="categorySelect" onchange="location = this.value;">
@@ -66,17 +77,22 @@ if (!$products) {
                 <p class="stock">Quantity in Stock: <?php echo htmlspecialchars($stock); ?></p>
 
                 <?php if (isset($_SESSION['username'])): ?>
-                    <?php if ($stock > 0): ?>
-                        <form class='add-to-cart-form' onsubmit='event.preventDefault(); ajaxSubmitForm(this);' action='process_add_to_cart.php' method='POST'>
-                            <input type='hidden' name='product_id' value='<?php echo $prod['id']; ?>'>
-                            <div class='form-group'>
-                                <label for='quantity'>Quantity:</label>
-                                <input type='number' id='quantity' name='quantity' value='1' min='1' max='<?php echo htmlspecialchars($stock); ?>' required>
-                            </div>
-                            <button type='submit' class='btn-secondary'>Add to Cart</button>
-                        </form>
+                    <?php if ($_SESSION['role'] === 'admin'): ?>
+                        <a href="edit_product.php?id=<?php echo $prod['id']; ?>" class="btn-secondary">Edit Product</a>
+                        <a href="edit_stock.php?id=<?php echo $prod['id']; ?>" class="btn-secondary">Edit Stock</a> <!-- New Edit Stock button -->
                     <?php else: ?>
-                        <p class="out-of-stock">This product is currently out of stock.</p>
+                        <?php if ($stock > 0): ?>
+                            <form class='add-to-cart-form' onsubmit='event.preventDefault(); ajaxSubmitForm(this);' action='process_add_to_cart.php' method='POST'>
+                                <input type='hidden' name='product_id' value='<?php echo $prod['id']; ?>'>
+                                <div class='form-group'>
+                                    <label for='quantity'>Quantity:</label>
+                                    <input type='number' id='quantity' name='quantity' value='1' min='1' max='<?php echo htmlspecialchars($stock); ?>' required>
+                                </div>
+                                <button type='submit' class='btn-secondary'>Add to Cart</button>
+                            </form>
+                        <?php else: ?>
+                            <p class="out-of-stock">This product is currently out of stock.</p>
+                        <?php endif; ?>
                     <?php endif; ?>
                 <?php else: ?>
                     <p>Please <a href='login.php'>log in</a> or <a href='register.php'>register</a> to add items to your cart.</p>
