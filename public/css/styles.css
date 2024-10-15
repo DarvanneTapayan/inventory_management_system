@@ -1,5 +1,3 @@
-/* public/css/styles.css */
-
 /* Reset default styles */
 body, h1, h2, h3, p {
     margin: 0;
@@ -60,10 +58,33 @@ nav a {
     transition: color 0.3s ease, transform 0.2s ease; /* Transition for color and transform */
 }
 
+/* Hover effect for navbar links */
 nav a:hover {
-    color: #000; /* Change text color on hover */
-    background-color: rgba(255, 255, 255, 0.4); /* Light background on hover */
+    color: #fff; /* White text for hover effect on navbar */
+    background-color: rgba(0, 0, 0, 0.4); /* Background change on hover */
     transform: scale(1.05); /* Slight zoom effect */
+}
+
+/* General link styles */
+/* Prevent links from affecting button styles */
+a {
+    text-decoration: none; /* Remove underline from links */
+}
+
+/* Navbar specific styles to override general link styles */
+nav a:link, nav a:visited {
+    color: #fff; /* Change to white for navbar links */
+}
+
+/* Hover effect for all links */
+a:hover {
+    color: #fff; /* Change to white on hover */
+    text-decoration: underline; /* Underline on hover for clarity */
+}
+
+/* Active link (when the link is being clicked) */
+a:active {
+    color: #ff0000; /* Change to red when the link is active */
 }
 
 /* Table styles */
@@ -148,7 +169,7 @@ table tbody td {
 /* Hover effect */
 .product-card:hover {
     transform: scale(1.05); /* Slight zoom effect */
-    box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2); /* Light shadow for depth */
+    box-shadow: 0 4px 15px rgba(255, 255, 255, 0.418); /* Light shadow for depth */
 }
 
 .product-card img {
@@ -205,6 +226,14 @@ table tbody td {
     border-radius: 8px; /* Rounded corners */
 }
 
+/* Ensure link colors are applied correctly */
+.btn-primary a,
+.btn-secondary a {
+    color: #000; /* Black text for links inside buttons */
+    text-decoration: none; /* Remove underline */
+}
+
+/* Hover effects for buttons */
 .btn-primary:hover, 
 .btn-secondary:hover {
     background-color: #444; /* Darker shade on hover */
