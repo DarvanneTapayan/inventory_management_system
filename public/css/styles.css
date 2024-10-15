@@ -10,10 +10,10 @@ body, h1, h2, h3, p {
     font-size: large;
 }
 
-/* Body styles */
+/* Body styles - Changed to dark background and light text */
 body {
-    background-color: #fff;
-    color: #000;
+    background-color: #000; /* Black background */
+    color: #fff; /* White text */
     display: flex;
     margin: 0; /* Removed margin for proper alignment */
     justify-content: space-between; /* Center the content */
@@ -22,17 +22,10 @@ body {
     flex-direction: column; /* Center elements vertically */
 }
 
-body {
-    background-image: url('https://images.unsplash.com/photo-1707134657472-51902d2854a4?q=80&w=1970&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
-    background-size: cover; /* Cover the entire viewport */
-    background-position: center; /* Center the background image */
-    background-repeat: no-repeat; /* Prevent the image from repeating */
-}
-
 /* Header and Navbar styles */
 header {
-    background-color: #f1f1f1;
-    color: #000;
+    background-color: #333; /* Dark gray background for header */
+    color: #fff; /* White text */
     padding: 10px 20px;
     width: 100%; /* Full width */
 }
@@ -42,7 +35,7 @@ nav {
     justify-content: center; /* Center nav items */
     align-items: center;
     width: 1024px; /* Full width */
-    background-color: rgba(0, 0, 0, 0.2);
+    background-color: rgba(255, 255, 255, 0.1); /* Semi-transparent white */
     border-radius: 1rem;
     padding-top: 1rem;
     padding-bottom: 1rem;
@@ -60,21 +53,18 @@ nav ul {
 }
 
 nav a {
-    color: #000;
+    color: #fff; /* White text for links */
     text-decoration: none;
     padding: 10px 20px; /* Add padding for better click area */
     border-radius: 0.5rem; /* Rounded corners for links */
     transition: color 0.3s ease, transform 0.2s ease; /* Transition for color and transform */
 }
 
-
 nav a:hover {
-    color: #fff; /* Change text color on hover */
-    background-color: rgba(0, 0, 0, 0.4); /* Background change on hover */
+    color: #000; /* Change text color on hover */
+    background-color: rgba(255, 255, 255, 0.4); /* Light background on hover */
     transform: scale(1.05); /* Slight zoom effect */
 }
-
-
 
 /* Table styles */
 table {
@@ -83,24 +73,26 @@ table {
     margin: 20px 0;
     font-size: 16px;
     text-align: center; /* Center text in the table */
+    color: #fff; /* White text for table */
 }
 
 table thead th {
-    background-color: #f4f4f4;
+    background-color: #444; /* Darker gray for table header */
     padding: 10px;
 }
 
 table tbody tr:nth-child(even) {
-    background-color: #f9f9f9;
+    background-color: #222; /* Dark background for even rows */
 }
 
 table tbody tr:hover {
-    background-color: #f1f1f1;
+    background-color: #555; /* Light gray on row hover */
 }
 
 table tbody td {
     padding: 10px;
     border-bottom: 1px solid #ddd;
+    color: #fff; /* White text for table cells */
 }
 
 /* Container styles */
@@ -109,16 +101,8 @@ table tbody td {
     width: 90%; /* Responsive */
     margin: 2rem auto; /* Center the container */
     padding: 2rem;
-    background-color: rgba(0, 0, 0, 0.2);
-    border-radius: 1rem;
-}
-
-.contact-container {
-
-    padding: 1rem;
-    background-color: rgba(110, 110, 110, 0.2);
-    border: 1px solid #b8b8b8;
-    border-radius: 1rem;
+    background-color: rgba(50, 50, 50, 0.9); /* Dark gray background */
+    border-radius: 1rem; /* Rounded corners */
 }
 
 /* Hero section styles */
@@ -151,9 +135,9 @@ table tbody td {
 }
 
 .product-card {
-    border: 1px solid #c4c4c4;
+    border: 1px solid #666; /* Border color */
     border-radius: 1rem;
-    background-color: #ececec;
+    background-color: #444; /* Dark gray background for cards */
     padding: 20px;
     margin: 10px;
     width: 250px;
@@ -164,7 +148,7 @@ table tbody td {
 /* Hover effect */
 .product-card:hover {
     transform: scale(1.05); /* Slight zoom effect */
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Add shadow for depth */
+    box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2); /* Light shadow for depth */
 }
 
 .product-card img {
@@ -192,6 +176,7 @@ table tbody td {
 
 .form-group label {
     display: block;
+    color: #fff; /* White text for labels */
 }
 
 .form-group input, 
@@ -201,38 +186,16 @@ table tbody td {
     padding: 8px;
     border: 1px solid #ccc;
     border-radius: 8px; /* Rounded corners */
-}
-
-.contact-form-container {
-    width: 100%;
-    padding: 20px;
-    margin: 20px 0;
-}
-
-.contact-form-group {
-    width: 100%;
-    margin-bottom: 15px;
-}
-
-.contact-form-group label {
-    display: block;
-}
-
-.contact-form-group input, 
-.contact-form-group textarea, 
-.contact-form-group select {
-    width: 93%; /* Width of form elements */
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 8px; /* Rounded corners */
+    background-color: #222; /* Dark background for input fields */
+    color: #fff; /* White text for input fields */
 }
 
 /* Button styles */
 .btn-primary, 
 .btn-secondary {
     display: inline-block;
-    background-color: #000;
-    color: #fff;
+    background-color: #fff; /* White background for buttons */
+    color: #000; /* Black text */
     padding: 10px 15px;
     margin-top: 1rem;
     margin-bottom: 1rem;
@@ -245,62 +208,10 @@ table tbody td {
 .btn-primary:hover, 
 .btn-secondary:hover {
     background-color: #444; /* Darker shade on hover */
+    color: #fff; /* Change text color to white on hover */
 }
 
 /* Notification styles */
-.notification {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    background-color: #4CAF50; /* Green */
-    color: white;
-    padding: 16px;
-    border-radius: 5px;
-    z-index: 1000;
-    transition: opacity 0.5s ease;
-}
-
-.notification.error {
-    background-color: #f44336; /* Red */
-}
-
-.notification.success {
-    background-color: #4CAF50; /* Green */
-}
-
-.dashboard-links {
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-    justify-content: space-between; /* Align cards evenly */
-    margin-top: 20px;
-}
-
-.dashboard-card {
-    border: 1px solid #c4c4c4; /* Border color */
-    border-radius: 1rem; /* Rounded corners */
-    background-color: #ececec; /* Background color */
-    padding: 20px; /* Padding inside the card */
-    margin: 10px; /* Margin around the card */
-    width: calc(30% - 20px); /* Responsive width for 3 cards per row */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
-    text-align: center; /* Center align text */
-    transition: transform 0.2s ease, box-shadow 0.2s ease; /* Smooth transition for hover effects */
-}
-
-.dashboard-card:hover {
-    transform: scale(1.05); /* Slight zoom effect on hover */
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Deeper shadow on hover */
-}
-
-.dashboard-card a {
-    text-decoration: none; /* Remove underline from links */
-    color: #ececec; /* Link color */
-    font-weight: bold; /* Bold text */
-    display: block; /* Make the link a block to cover the whole card */
-    margin-bottom: 10px; /* Space between link and description */
-}
-
 .notification {
     position: fixed;
     top: 20px;
@@ -356,7 +267,7 @@ table tbody td {
         width: 90%;
         margin: 2rem auto;
         padding: 2rem;
-        background-color: rgba(0, 0, 0, 0.2);
+        background-color: rgba(255, 255, 255, 0.1); /* Semi-transparent for dark theme */
         border-radius: 1rem;
     }
 
