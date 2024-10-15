@@ -7,6 +7,12 @@ if (session_status() === PHP_SESSION_NONE) {
 
 <nav>
     <ul>
+        <li>
+            <a href="index.php">
+                <img src="images/logo.avif" alt="Logo" style="height: 50px;"> <!-- Adjust height as needed -->
+            </a>
+        </li>
+
         <?php if (isset($_SESSION['username'])): ?>
             <?php if ($_SESSION['role'] !== 'admin'): ?>
                 <li><a href="index.php">Home</a></li> <!-- Show Home only for regular users -->

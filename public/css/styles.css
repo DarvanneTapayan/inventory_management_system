@@ -47,7 +47,13 @@ nav ul {
     margin: 0;
     padding: 0; /* Remove default padding */
     width: 100%; /* Ensure the ul takes full width */
-    justify-content: space-between;
+    justify-content: space-between; /* Keep space between items */
+}
+
+nav li {
+    display: flex; /* Use flexbox for li */
+    align-items: center; /* Center vertically */
+    justify-content: center; /* Center horizontally within li */
 }
 
 nav a {
@@ -56,6 +62,10 @@ nav a {
     padding: 10px 20px; /* Add padding for better click area */
     border-radius: 0.5rem; /* Rounded corners for links */
     transition: color 0.3s ease, transform 0.2s ease; /* Transition for color and transform */
+    display: flex; /* Use flex to align text */
+    align-items: center; /* Center vertically */
+    justify-content: center; /* Center horizontally in the anchor */
+    text-align: center; /* Center text inside the link */
 }
 
 /* Hover effect for navbar links */
