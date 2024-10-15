@@ -79,24 +79,20 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin') {
     </section>
 
     <section>
-        <div class="contact-container">
-            <div class="contact-form-container">
+        <div class="container">
+            <div class="contact-info-container">
                 <h2>Contact Us</h2>
-                <form action="send_message.php" method="POST">
-                    <div class="contact-form-group">
-                        <label for="name">Name:</label>
-                        <input type="text" id="name" name="name" required>
-                    </div>
-                    <div class="contact-form-group">
-                        <label for="email">Email:</label>
-                        <input type="email" id="email" name="email" required>
-                    </div>
-                    <div class="contact-form-group">
-                        <label for="message">Message:</label>
-                        <textarea id="message" name="message" rows="5" required></textarea>
-                    </div>
-                    <button type="submit" class="btn-primary">Send Message</button>
-                </form>
+                <p>If you have any questions or inquiries, feel free to reach out to us through the following methods:</p>
+                
+                <h3>Our Contact Information:</h3>
+                <ul>
+                    <li><strong>Phone:</strong> <a href="tel:+1234567890">+1 234 567 890</a></li>
+                    <li><strong>Email:</strong> <a href="mailto:info@cakebakeshop.com">info@cakebakeshop.com</a></li>
+                    <li><strong>Facebook:</strong> <a href="https://facebook.com/cakebakeshop" target="_blank">facebook.com/cakebakeshop</a></li>
+                    <li><strong>Instagram:</strong> <a href="https://instagram.com/cakebakeshop" target="_blank">instagram.com/cakebakeshop</a></li>
+                </ul>
+                
+                <p>We look forward to hearing from you!</p>
             </div>
         </div>
     </section>
