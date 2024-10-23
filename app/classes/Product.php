@@ -72,5 +72,15 @@ class Product {
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    public function getProductByName($name) {
+        $query = "SELECT * FROM products WHERE name = :name";
+        $stmt = $this->conn->prepare($query); // Use $this->conn
+        $stmt->bindParam(':name', $name);
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+    
+    
 }
 ?>

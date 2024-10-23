@@ -32,6 +32,11 @@ class ProductController {
     public function getLastInsertedId() {
         return $this->product->getLastInsertedId(); // Call the method from the Product class
     }
+
+    public function getProductByName($name) {
+        return $this->product->getProductByName($name);
+    }
+    
 }
 
 ?>
